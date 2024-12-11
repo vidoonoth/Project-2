@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use id;
+Use App\Models\User;
 use App\Models\Pengusulan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -11,6 +13,7 @@ class pengusulanController extends Controller
 {
     public function index(Request $request)
     {
+        // $user = User::where('user_id');
         $pengusulan = Pengusulan::all();
 
         $search = $request->input('search');
@@ -24,7 +27,9 @@ class pengusulanController extends Controller
                         ->orWhere('publicationYear', 'like', '%' . $search . '%')
                         ->orWhere('publisher', 'like', '%' . $search . '%')
                         ->orWhere('date', 'like', '%' . $search . '%')
-                        ->orWhere('status', 'like', '%' . $search . '%');
+                        ->orWhere('status', 'like', '%' . $search . '%')
+                        ->orWhere('user_id', 'like', '%' . $search . '%')
+                        ;
         })->get();
         // Kirim data usulan ke tampilan riwayatPengusulan
         return view('riwayatPengusulan', compact('pengusulan'));
@@ -52,6 +57,24 @@ class pengusulanController extends Controller
         })->get();
         return view('admin.dataPengusulan', compact('pengusulan')); // Mengirim data buku ke view
     }
+    public function cetakPengusulan(Request $request)
+    {
+        $pengusulan = Pengusulan::all(); // Mengambil semua data buku
+        $search = $request->input('search');
+
+        // Query untuk mencari data berdasarkan judul atau status query builder
+        $pengusulan = Pengusulan::when($search, function ($query, $search) {
+            return $query->where('bookTitle', 'like', '%' . $search . '%')
+                        ->orWhere('genre', 'like', '%' . $search . '%')
+                        ->orWhere('isbn', 'like', '%' . $search . '%')
+                        ->orWhere('author', 'like', '%' . $search . '%')
+                        ->orWhere('publicationYear', 'like', '%' . $search . '%')
+                        ->orWhere('publisher', 'like', '%' . $search . '%')
+                        ->orWhere('date', 'like', '%' . $search . '%')
+                        ->orWhere('status', 'like', '%' . $search . '%');
+        })->get();
+        return view('admin.cetakPengusulan', compact('pengusulan')); // Mengirim data buku ke view
+    }
 
 
     public function create()
@@ -59,40 +82,50 @@ class pengusulanController extends Controller
         //
         return view('pengusulan');
     }
+
     public function store(Request $request)
-    {
-        //
-            $request->validate([
-                'bookTitle' => 'required|string',
-                'genre' => 'required|string|max:255',
-                'isbn' => 'nullable|string',
-                'author' => 'required|string|max:255',
-                'publicationYear' => 'required|string',
-                'publisher' => 'required|string|max:255',
-                'date' => 'required|date',
-                'bookImage' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-            ]);
-            // $bookImagePath = $request->file('bookImage')->store('book_images', 'public');
-            $bookImagePath = null; // Set default to null
-            if ($request->hasFile('bookImage') && $request->file('bookImage')->isValid()) {
-                $bookImagePath = $request->file('bookImage')->store('book_images', 'public');
-            }
+{
+    // Validasi input
+    $request->validate([
+        'bookTitle' => 'required|string',
+        'genre' => 'required|string|max:255',
+        'isbn' => 'nullable|string',
+        'author' => 'required|string|max:255',
+        'publicationYear' => 'required|string',
+        'publisher' => 'required|string|max:255',
+        'date' => 'required|date',
+        'bookImage' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+    ]);
 
-            Pengusulan::create([
-                'bookTitle' => $request->bookTitle,
-                'genre' => $request->genre,
-                'isbn' => $request->isbn,
-                'author' => $request->author,
-                'publicationYear' => $request->publicationYear,
-                'publisher' => $request->publisher,
-                'date' => $request->date,
-                'bookImage' => $bookImagePath,
-                'status' => "diproses",
-            ]);
-
-            // $request->notify(new DiterimaNotification($request->isbn));
-            return redirect()->route('pengusulan.index')->with('success', 'Usulan buku berhasil diajukan!');
+    // Menangani file gambar jika ada
+    $bookImagePath = null;  // Set default to null
+    if ($request->hasFile('bookImage') && $request->file('bookImage')->isValid()) {
+        // Simpan gambar ke folder 'public/book_images'
+        $bookImagePath = $request->file('bookImage')->store('book_images', 'public');
+        // Ambil hanya nama file untuk disimpan di database
+        $bookImagePath = basename($bookImagePath);
     }
+
+    // Simpan data buku ke dalam database dengan user_id
+    Pengusulan::create([
+        'bookTitle' => $request->bookTitle,
+        'genre' => $request->genre,
+        'isbn' => $request->isbn,
+        'author' => $request->author,
+        'publicationYear' => $request->publicationYear,
+        'publisher' => $request->publisher,
+        'date' => $request->date,
+        'bookImage' => $bookImagePath,  // Menyimpan nama file gambar
+        'status' => "diproses",  // Status default
+        // 'user_id' => auth()->id(),  // Menyimpan ID user yang sedang login
+    ]);
+
+    // Redirect setelah berhasil menyimpan
+    return redirect()->route('pengusulan.index')->with('success', 'Usulan buku berhasil diajukan!');
+}
+
+
+
 
 
     // public function show(string $id)

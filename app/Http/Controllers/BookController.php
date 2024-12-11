@@ -74,34 +74,38 @@ class BookController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'bookTitle' => 'required|string',
-            'genre' => 'required|string|max:255',
-            'isbn' => 'nullable|string',
-            'author' => 'required|string',
-            'publicationYear' => 'required|string',
-            'publisher' => 'required|string',
-            'description' => 'required|string',
-            'synopsis' => 'required|string',
-            'bookImage' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-        ]);
+    $request->validate([
+        'bookTitle' => 'required|string',
+        'genre' => 'required|string|max:255',
+        'isbn' => 'nullable|string',
+        'author' => 'required|string',
+        'publicationYear' => 'required|string',
+        'publisher' => 'required|string',
+        'description' => 'required|string',
+        'synopsis' => 'required|string',
+        'bookImage' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+    ]);
 
-        $bookImagePath = $request->file('bookImage')->store('book_images', 'public');
+    // Simpan gambar dan ambil nama file
+    $bookImagePath = $request->file('bookImage')->store('book_images', 'public');
+    $fileName = basename($bookImagePath);  // Ambil hanya nama file
 
-        Book::create([
-            'bookTitle' => $request->bookTitle,
-            'genre' => $request->genre,
-            'isbn' => $request->isbn,
-            'author' => $request->author,
-            'publicationYear' => $request->publicationYear,
-            'publisher' => $request->publisher,
-            'description' => $request->description,
-            'synopsis' => $request->synopsis,
-            'bookImage' => $bookImagePath,
-        ]);
+    // Simpan data buku
+    Book::create([
+        'bookTitle' => $request->bookTitle,
+        'genre' => $request->genre,
+        'isbn' => $request->isbn,
+        'author' => $request->author,
+        'publicationYear' => $request->publicationYear,
+        'publisher' => $request->publisher,
+        'description' => $request->description,
+        'synopsis' => $request->synopsis,
+        'bookImage' => $fileName,  // Simpan hanya nama file
+    ]);
 
-        return redirect()->route('books.index')->with('success', 'Book created successfully');
+    return redirect()->route('books.index')->with('success', 'Book created successfully');
     }
+
 
     public function edit($id)
     {

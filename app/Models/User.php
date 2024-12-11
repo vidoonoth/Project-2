@@ -51,4 +51,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // public function pengusulans()
+    // {
+    //     return $this->hasMany(Pengusulan::class, 'user_id');
+    // }
+
 }
