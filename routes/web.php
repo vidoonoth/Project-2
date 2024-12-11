@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dataPengusulan', [pengusulanController::class, 'dataPengusulan'])->name('dataPengusulan');
     Route::get('/dataPengusulan', [pengusulanController::class, 'dataPengusulan'])->name('dataPengusulan');
     Route::get('/dataPengusulan/{id}/edit', [PengusulanController::class, 'editDataPengusulan'])->name('editDataPengusulan');
+    Route::get('/dataPengusulan/show', [PengusulanController::class, 'cetakPengusulan'])->name('cetakPengusulan');
     Route::put('/dataPengusulan/{id}', [PengusulanController::class, 'updateDataPengusulan'])->name('updateDataPengusulan');
 
 });
