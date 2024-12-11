@@ -1,10 +1,10 @@
 <x-app-layout>
-    <div class="w-full flex justify-between items-center mt-8 pl-11 pr-24">
+    <div class="w-full flex justify-between items-center mt-8 pl-2 md:pl-11 lg:pl-11 xl:pl-11 pr-2 md:pr-24 lg:pr-24 xl:pr-24">
         <div class="">
             <p class="text-xl font-medium w-fit border-b border-slate-950">Riwayat Pengusulan</p>
         </div>
 
-        <div class="flex items-center gap-8">
+        <div class="flex gap-8 md:flex lg:flex xl:flex items-end md:items-center lg:items-center xl:items-center md:gap-8 lg:gap-8 xl:gap-8">
             <form action="{{ route('pengusulan.index') }}" method="GET" class="flex items-center ">
                     <input type="text" id="search" name="search" placeholder="Cari riwayat pengusulan"
                         class="p-2 border border-blue-400 rounded-l-[50px] focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-[14px] placeholder:text-slate-400">
@@ -63,6 +63,7 @@
                     @foreach ($pengusulan as $item)
                         <tr class="border-b border-slate-200 hover:bg-gray-100">
                             <td class="px-4 py-2">{{ $loop->iteration }}</td>
+                            {{-- <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->user_id }}</td> --}}
                             <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->bookTitle }}</td>
                             <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->genre }}</td>
                             <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->isbn }}</td>
@@ -72,9 +73,9 @@
                             <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->date }}</td>
                             <td class="px-4 py-2 border-l border-r border-slate-200">
                                 @if($item->bookImage)
-                                <img src="{{ asset('storage/' . $item->bookImage) }}" alt="Gambar Buku" class="w-24 h-24 object-cover rounded">
+                                    <img src="{{ asset('storage/app/public/book_images/' . $item->bookImage) }}" alt="Gambar Buku" class="w-24 h-24 object-cover rounded">
                                 @else
-                                Tidak ada gambar
+                                    Tidak ada gambar
                                 @endif
                             </td>
                             <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->status }}</td>
