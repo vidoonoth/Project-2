@@ -1,45 +1,79 @@
-/lang
+# /lang
+# /vendor/
+# vendor/
+# node_modules/
+# npm-debug.log
+# yarn-error.log
+
+# # Laravel 4 specific
+# bootstrap/compiled.php
+# bootstrap/cache/
+# /bootstrap/cache/
+
+# app/storage/
+# storage/
+# database/
+
+# # Laravel 5 & Lumen specific
+# public/storage
+# public/hot
+
+# # Laravel 5 & Lumen specific with changed public path
+# public_html/storage
+# public_html/hot
+
+# storage/*.key
+# .env
+# Homestead.yaml
+# Homestead.json
+# /.vagrant
+# .phpunit.result.cache
+
+# # Laravel specific
+# /.env
+# /vendor/
+# /node_modules/
+# /public/storage
+# /storage/*.key
+# /.idea
+# /.vscode
+# *.log
+# *.bak
+# *.tmp
+
+# # Composer and npm files
+# composer.lock
+# package-lock.json
+
+# # Laravel debugbar
+# /debugbar/
+
+# # IDE-specific files
+# *.sublime-workspace
+# *.sublime-project
+
+
+# Laravel & Composer Vendor
 /vendor/
-vendor/
-node_modules/
-npm-debug.log
-yarn-error.log
+/node_modules/
 
-# Laravel 4 specific
-bootstrap/compiled.php
+# Laravel build folders
+/public/storage
+/public/hot
+/public_html/storage
+/public_html/hot
+/storage/
 bootstrap/cache/
-/bootstrap/cache/
-
-app/storage/
-storage/
-database/
-
-# Laravel 5 & Lumen specific
-public/storage
-public/hot
-
-# Laravel 5 & Lumen specific with changed public path
-public_html/storage
-public_html/hot
-
-storage/*.key
-.env
-Homestead.yaml
-Homestead.json
-/.vagrant
-.phpunit.result.cache
 
 # Laravel specific
 /.env
-/vendor/
-/node_modules/
-/public/storage
 /storage/*.key
 /.idea
 /.vscode
 *.log
 *.bak
 *.tmp
+/.phpunit.result.cache
 
 # Composer and npm files
 composer.lock
@@ -51,3 +85,6 @@ package-lock.json
 # IDE-specific files
 *.sublime-workspace
 *.sublime-project
+.idea/
+.vscode/
+node_modules
