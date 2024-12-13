@@ -40,11 +40,11 @@
                 </div>
 
                 @if ($books->isEmpty())
-                <div class="text-center h-[100px] my-[100px]">
+                <div id="if->table=empty" class="text-center h-[100px] my-[100px]">
                     <h1 class="text-lg font-medium text-gray-600">Tidak Ada Data Buku</h1>
                 </div>
                 @else
-                <div class="relative overflow-x-auto overflow-y-auto max-h-[320px] shadow-md sm:rounded-lg">
+                <div id="isi-tabel" class="relative overflow-x-auto overflow-y-auto max-h-[320px] shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 overflow-scroll">
                         <thead class="text-xs bg-blue-600 w-full text-gray-700 uppercase dark:bg-gray-700 dark:text-gray-400">
                             <tr class="text-slate-50 w-full">
@@ -87,35 +87,34 @@
                             @foreach ($books as $book)
                             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-slate-100 even:dark:bg-gray-800 border-b border-slate-200 dark:border-gray-700">
                                 <td class="px-4 py-2">{{ $loop->iteration }}</td>
-                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white border-l border-r border-slate-200">
-                                    <img src="{{ asset('storage/' . $book->bookImage) }}" alt="gambar buku">
-
+                                <td class="px-4 py-2 font-medium text-gray-900 dark:text-white border-l border-r border-slate-200">
+                                    <img class="w-[100px] h-[100px]" src="{{ asset('storage/' . $book->bookImage) }}" alt="gambar buku">
                                 </td>
-                                <td class="px-6 py-4 border-l border-r border-slate-200">
+                                <td class="px-6 py-2 border-l border-r border-slate-200">
                                     {{ $book->isbn }}
                                 </td>
-                                <td class="px-6 py-4 border-l border-r border-slate-200">
+                                <td class="px-6 py-2 border-l border-r border-slate-200">
                                     {{ $book->bookTitle }}
                                 </td>
-                                <td class="px-6 py-4 border-l border-r border-slate-200">
+                                <td class="px-6 py-2 border-l border-r border-slate-200">
                                     {{ $book->author }}
                                 </td>
-                                <td class="px-6 py-4 border-l border-r border-slate-200">
+                                <td class="px-6 py-2 border-l border-r border-slate-200">
                                     {{ $book->genre }}
                                 </td>
-                                <td class="px-6 py-4 border-l border-r border-slate-200">
+                                <td class="px-6 py-2 border-l border-r border-slate-200">
                                     {{ $book->publicationYear }}
                                 </td>
-                                <td class="px-6 py-4 border-l border-r border-slate-200">
+                                <td class="px-6 py-2 border-l border-r border-slate-200">
                                     {{ $book->publisher }}
                                 </td>
-                                <td class="px-6 py-4 border-l border-r border-slate-200">
+                                <td class="px-6 py-2 border-l border-r border-slate-200 ">
                                     {{ $book->description }}
                                 </td>
-                                <td class="px-6 py-4 border-l border-r border-slate-200 line-clamp-3">
+                                <td class="px-6 py-2 border-l border-r border-slate-200 ">
                                     {{ $book->synopsis }}
                                 </td>
-                                <td class="px-6 py-4 border-l border-r border-slate-200 ">
+                                <td class="px-6 py-2 border-l border-r border-slate-200 ">
                                     <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
                                             <path fill="currentColor" d="M12 9a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5a5 5 0 0 1 5-5a5 5 0 0 1 5 5a5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/>

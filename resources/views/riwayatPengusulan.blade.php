@@ -42,8 +42,8 @@
             <h1 class="text-lg font-medium text-gray-600">Tidak ada riwayat pengusulan</h1>
         </div>
     @else
-        <div class="mt-[80px] mb-[180px] rounded-lg w-[92%] m-auto">
-            <table class="table-auto bg-white rounded-lg shadow-md m-auto">
+        <div class="mt-[80px] mb-[180px] rounded-lg w-[92%] h-[300px] overflow-auto m-auto">
+            <table class="table-auto bg-white rounded-lg shadow-md m-auto w-full overflow-scroll">
                 <thead class="bg-blue-400 text-white rounded-lg">
                     <tr class="rounded-lg">
                         <th class="px-4 py-2 text-center text-[14px] font-medium rounded-sm">No</th>
@@ -56,14 +56,13 @@
                         <th class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Tanggal Usulan</th>
                         <th class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Gambar Buku</th>
                         <th class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Status</th>
-                        <th class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Aksi</th>
+                        <th class="px-4 py-2 text-center text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Aksi</th> <!-- Mengubah text-left ke text-center -->
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($pengusulan as $item)
                         <tr class="border-b border-slate-200 hover:bg-gray-100">
-                            <td class="px-4 py-2">{{ $loop->iteration }}</td>
-                            {{-- <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->user_id }}</td> --}}
+                            <td class="px-4 py-2 text-center">{{ $loop->iteration }}</td> <!-- Menambah text-center -->
                             <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->bookTitle }}</td>
                             <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->genre }}</td>
                             <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->isbn }}</td>
@@ -73,29 +72,25 @@
                             <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->date }}</td>
                             <td class="px-4 py-2 border-l border-r border-slate-200">
                                 @if($item->bookImage)
-                                    <img src="{{ asset('storage/'.$item->bookImage) }}" alt="Gambar Buku" class="w-24 h-24 object-cover rounded">
+                                    <img src="{{ asset('storage/'.$item->bookImage) }}" alt="Gambar Buku" class="w-[100px] h-[100px] object-cover rounded">
                                 @else
                                     Tidak ada gambar
                                 @endif
                             </td>
                             <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->status }}</td>
-                            <td class="px-4 py-2 flex flex-col gap-2">
+                            <td class="px-4 py-2 text-center  inline-flex items-center justify-center gap-2"> 
                                 <a href="{{ route('pengusulan.edit', $item->id) }}" class="font-medium text-[14px] hover:text-blue-600 text-slate-50 hover:bg-slate-200 bg-blue-400 py-1 px-1 dark:text-blue-500 text-center rounded-md">Edit</a>
-                                    <form action="{{ route('pengusulan.destroy', $item->id) }}"
-                                        method="POST"
-                                        onsubmit="return confirm('Anda Yakin Ingin Menghapusnya?');">
-                                      @csrf
-                                      @method('DELETE')
-                                      <button type="submit"
-                                              class="font-medium text-[14px] hover:text-red-500 text-slate-50 hover:bg-slate-200 bg-red-500 py-1 px-1 dark:text-red-500 text-center rounded-md">
-                                          Hapus
-                                      </button>
-                                  </form>
+                                <form action="{{ route('pengusulan.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Anda Yakin Ingin Menghapusnya?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="font-medium text-[14px] hover:text-red-500 text-slate-50 hover:bg-slate-200 bg-red-500 py-1 px-1 dark:text-red-500 text-center rounded-md">Hapus</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+            
         </div>
     @endif
 

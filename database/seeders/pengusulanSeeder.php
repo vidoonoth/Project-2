@@ -16,17 +16,16 @@ class pengusulanSeeder extends Seeder
         //
         DB::table('pengusulan')->insert([
             [
-                'bookTitle' => 'Atomic Habits',
-                'isbn'=> 9786020,
-                'genre' => 'Self Improvement',
-                'author' => 'James Clear',
-                'publicationYear' => 2019,
-                'publisher' => 'Gramedia Pustaka Utama',
-                // 'date' => '2023-10-01',
-                // 'bookImage' => 'book1.jpg',
-                'status' => 'diterima',
-                // 'bookImage' => 'images/atomic.jpg',
-                // 'description' => 'nothing',
+                'bookTitle' => 'Database Relasional', 
+                'genre' => 'Teknologi Informasi', 
+                'isbn' => '978-1122334455', 
+                'author' => 'Alice', 
+                'publicationYear' => 2020, 
+                'publisher' => 'Penerbit TI', 
+                'date' => '2024-01-03', 
+                'bookImage' => 'images/book3.jpg', 
+                'status' => 'tersedia', 
+                'user_id' => 1,
             ]
         ]);
     }

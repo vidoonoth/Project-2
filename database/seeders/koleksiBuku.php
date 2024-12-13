@@ -16,15 +16,17 @@ class koleksiBuku extends Seeder
         //
         DB::table('books')->insert([
             [
-                'bookTitle' => 'Atomic Habits',
-                'isbn' => '9786020',
-                'genre' => 'Self Improvement',
-                'author' => 'James Clear',
-                'publicationYear' => '2019',
+                'bookTitle' => 'Laut Bercerita',
+                'genre' => 'Fiction',
+                'isbn' => '9786020331234',
+                'author' => 'Leila S. Chudori',
+                'publicationYear' => '2017',
                 'publisher' => 'Gramedia Pustaka Utama',
-                'description' => 'A comprehensive guide to building good habits and breaking bad ones.',
-                'synopsis' => 'This book provides proven strategies to improve your life by changing your habits.',
-                'bookImage' => 'book_images/atomic.jpg', // Gambar default atau path placeholder
+                'description' => 'Buku ini menceritakan perjuangan seorang aktivis dalam masa Orde Baru.',
+                'synopsis' => 'Cerita penuh emosi yang menggambarkan pengorbanan, kehilangan, dan harapan.',
+                'bookImage' => null,
+                'created_at' => now(),
+                'updated_at' => now(), // Gambar default atau path placeholder
             ]
         ]);
 
