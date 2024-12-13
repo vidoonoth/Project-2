@@ -73,7 +73,7 @@
                             <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->date }}</td>
                             <td class="px-4 py-2 border-l border-r border-slate-200">
                                 @if($item->bookImage)
-                                    <img src="{{ asset('storage/app/public/book_images/' . $item->bookImage) }}" alt="Gambar Buku" class="w-24 h-24 object-cover rounded">
+                                    <img src="{{ asset('storage/'.$item->bookImage) }}" alt="Gambar Buku" class="w-24 h-24 object-cover rounded">
                                 @else
                                     Tidak ada gambar
                                 @endif

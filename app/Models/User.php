@@ -52,9 +52,9 @@ class User extends Authenticatable
         ];
     }
 
-    // public function pengusulans()
-    // {
-    //     return $this->hasMany(Pengusulan::class, 'user_id');
-    // }
+    public function pengusulans()
+    {
+        return $this->hasMany(Pengusulan::class, 'user_id');
+    }
 
 }

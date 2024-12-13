@@ -34,14 +34,15 @@ class pengusulanController extends Controller
         // Kirim data usulan ke tampilan riwayatPengusulan
         return view('riwayatPengusulan', compact('pengusulan'));
     }
-    public function riwayatPengusulan()
-    {
-        $pengusulan = Pengusulan::all(); // Mengambil semua data buku
-        return view('riwayatPengusulan', compact('pengusulan')); // Mengirim data buku ke view
-    }
+    // public function riwayatPengusulan()
+    // {
+    //     $pengusulan = Pengusulan::all(); // Mengambil semua data buku
+    //     return view('riwayatPengusulan', compact('pengusulan')); // Mengirim data buku ke view
+    // }
     public function dataPengusulan(Request $request)
     {
-        $pengusulan = Pengusulan::all(); // Mengambil semua data buku
+        // $pengusulan = Pengusulan::all(); // Mengambil semua data buku
+        $pengusulan = Pengusulan::with('user')->get();
         $search = $request->input('search');
 
         // Query untuk mencari data berdasarkan judul atau status query builder
@@ -99,11 +100,9 @@ class pengusulanController extends Controller
 
     // Menangani file gambar jika ada
     $bookImagePath = null;  // Set default to null
-    if ($request->hasFile('bookImage') && $request->file('bookImage')->isValid()) {
+    if ($request->hasFile('bookImage')) {
         // Simpan gambar ke folder 'public/book_images'
-        $bookImagePath = $request->file('bookImage')->store('book_images', 'public');
-        // Ambil hanya nama file untuk disimpan di database
-        $bookImagePath = basename($bookImagePath);
+        $bookImagePath = $request->file('bookImage')->store('images', 'public');
     }
 
     // Simpan data buku ke dalam database dengan user_id

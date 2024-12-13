@@ -73,6 +73,9 @@
                             @foreach ($pengusulan as $item)
                             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-slate-100 even:dark:bg-gray-800 border-b border-slate-200 dark:border-gray-700">
                                 <td class="px-4 py-2">{{ $loop->iteration }}</td>
+                                <td class="px-6 py-4 border-l border-r border-slate-200">
+                                    {{ $item->user->username }}
+                                </td>
                                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     @if($item->bookImage)
                                         <img src="{{ asset('storage/' . $item->bookImage) }}" alt="gambar buku">
@@ -135,7 +138,7 @@
                 @endif
         </div>
     </div>
-    
+
 </x-app-admin-layout>
 
 

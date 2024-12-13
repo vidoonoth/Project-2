@@ -19,6 +19,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/dashboard', [DashboardAdminController::class, 'index'])->middleware(['auth', 'admin'])
+                                                                        ->name('dashboard');
 
     Route::resource('pengusulan', pengusulanController::class);
     Route::get('/dataPengusulan', [pengusulanController::class, 'dataPengusulan'])->name('dataPengusulan');
@@ -34,8 +36,8 @@ Route::get('/notifikasiUser', [NotifikasiController::class, 'notifUser'])->name(
                                                                                     ->middleware('auth');;
 
 
-Route::get('/dashboard', [DashboardAdminController::class, 'index'])->middleware(['auth', 'admin'])
-->name('dashboard');
+// Route::get('/dashboard', [DashboardAdminController::class, 'index'])->middleware(['auth', 'admin'])
+// ->name('dashboard');
 // Route::view('/dataPengusulan', 'admin.dataPengusulan')->name('dataPengusulan');
 
 // Route::resource('dashboard', DashboardAdminController::class);
