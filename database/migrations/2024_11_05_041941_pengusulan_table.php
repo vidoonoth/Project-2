@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pengusulan', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            // $table->unsignedBigInteger('user_id');
             $table->string('bookTitle', 255);
             $table->string('genre', 255);
             $table->string('isbn', 255)->nullable();
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->enum('status', ['diproses', 'diterima', 'tersedia', 'ditolak' ])->default('diproses');
 
             // Menambahkan kolom user_id untuk relasi dengan tabel users
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });

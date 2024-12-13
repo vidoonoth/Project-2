@@ -38,6 +38,9 @@
                                     No
                                 </th>
                                 <th scope="col" class="px-6 py-3 border-l border-r border-blue-500">
+                                    Username
+                                </th>
+                                <th scope="col" class="px-6 py-3 border-l border-r border-blue-500">
                                     Gambar Buku
                                 </th>
                                 <th scope="col" class="px-6 py-3 border-l border-r border-blue-500">

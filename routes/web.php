@@ -19,10 +19,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/dashboard', [DashboardAdminController::class, 'index'])->middleware(['auth', 'admin'])
-                                                                        ->name('dashboard');
-
-    Route::resource('pengusulan', pengusulanController::class);
+    Route::get('/homePage', [BookController::class, 'koleksiBukuHome'])->name('homePage');                                                                
+    Route::resource('pengusulan', pengusulanController::class)->middleware('auth');
+    // route::get('/pengusulan', [pengusulanController::class, 'index'])->name('riwayatPengusulan');
     Route::get('/dataPengusulan', [pengusulanController::class, 'dataPengusulan'])->name('dataPengusulan');
     Route::get('/dataPengusulan', [pengusulanController::class, 'dataPengusulan'])->name('dataPengusulan');
     Route::get('/dataPengusulan/{id}/edit', [PengusulanController::class, 'editDataPengusulan'])->name('editDataPengusulan');
@@ -30,6 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/dataPengusulan/{id}', [PengusulanController::class, 'updateDataPengusulan'])->name('updateDataPengusulan');
 
 });
+
+Route::get('/dashboard', [DashboardAdminController::class, 'index'])->middleware(['auth', 'admin'])
+                                                                        ->name('dashboard');
 
 Route::resource('notifikasi', NotifikasiController::class);
 Route::get('/notifikasiUser', [NotifikasiController::class, 'notifUser'])->name('notifikasiUser')
@@ -96,7 +98,7 @@ Route::get('/pengaturanAkun', function () {
 // })->middleware(['auth', 'verified'])->name('homePage');
 
 // info
-Route::view('/HomePage', 'homePage')->name('homePage');
+// Route::view('/HomePage', 'homePage')->name('homePage');
 // Route::view('/sejarah', 'sejarah')->name('sejarah');
 // Route::view('/visiMisi', 'visiMisi')->name('visiMisi');
 Route::view('/denahPeta', 'denahPeta')->name('denahPeta');
@@ -108,7 +110,7 @@ Route::view('/denahPeta', 'denahPeta')->name('denahPeta');
 
 
 
-Route::get('/homePage', [BooksController::class, 'index']);
+// Route::get('/homePage', [BooksController::class, 'index']);
 
 // Route::get('admin/dashboard', [adminDashboard::class, 'index'])->
 //     middleware(['auth', 'admin'])->name('admin.dashboard');

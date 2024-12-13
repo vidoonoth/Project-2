@@ -22,10 +22,11 @@ class Pengusulan extends Model
         'date',
         'bookImage',
         'status',
+        'user_id',
     ];
 
 
-    public function users():BelongsTo
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }

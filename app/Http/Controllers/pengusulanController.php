@@ -6,20 +6,25 @@ use id;
 Use App\Models\User;
 use App\Models\Pengusulan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Notifications\DiterimaNotification;
 
 class pengusulanController extends Controller
 {
+    
     public function index(Request $request)
     {
         // $user = User::where('user_id');
-        $pengusulan = Pengusulan::all();
-
+        $user = Auth::id();
+        // $pengusulan = Pengusulan::with('user')->get();
         $search = $request->input('search');
 
         // Query untuk mencari data berdasarkan judul atau status query builder
-        $pengusulan = Pengusulan::when($search, function ($query, $search) {
+        $pengusulan = Pengusulan::join('users', 'pengusulan.user_id', '=', 'users.id')
+        ->select('pengusulan.*', 'username')
+        ->where('pengusulan.user_id', $user)
+        ->when($search, function ($query, $search) {
             return $query->where('bookTitle', 'like', '%' . $search . '%')
                         ->orWhere('genre', 'like', '%' . $search . '%')
                         ->orWhere('isbn', 'like', '%' . $search . '%')
@@ -28,8 +33,7 @@ class pengusulanController extends Controller
                         ->orWhere('publisher', 'like', '%' . $search . '%')
                         ->orWhere('date', 'like', '%' . $search . '%')
                         ->orWhere('status', 'like', '%' . $search . '%')
-                        ->orWhere('user_id', 'like', '%' . $search . '%')
-                        ;
+                        ->orWhere('id_user', 'like', '%' . $search . '%');
         })->get();
         // Kirim data usulan ke tampilan riwayatPengusulan
         return view('riwayatPengusulan', compact('pengusulan'));
@@ -42,7 +46,8 @@ class pengusulanController extends Controller
     public function dataPengusulan(Request $request)
     {
         // $pengusulan = Pengusulan::all(); // Mengambil semua data buku
-        $pengusulan = Pengusulan::with('user')->get();
+        $pengusulan = Pengusulan::where('user_id')->get();
+        // $sesi = auth()->id();
         $search = $request->input('search');
 
         // Query untuk mencari data berdasarkan judul atau status query builder
@@ -85,7 +90,9 @@ class pengusulanController extends Controller
     }
 
     public function store(Request $request)
-{
+    {
+
+    
     // Validasi input
     $request->validate([
         'bookTitle' => 'required|string',
@@ -96,6 +103,7 @@ class pengusulanController extends Controller
         'publisher' => 'required|string|max:255',
         'date' => 'required|date',
         'bookImage' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+        
     ]);
 
     // Menangani file gambar jika ada
@@ -115,8 +123,8 @@ class pengusulanController extends Controller
         'publisher' => $request->publisher,
         'date' => $request->date,
         'bookImage' => $bookImagePath,  // Menyimpan nama file gambar
-        'status' => "diproses",  // Status default
-        // 'user_id' => auth()->id(),  // Menyimpan ID user yang sedang login
+        'status' => "diproses",  // Status default        
+        'user_id' => Auth::id(),
     ]);
 
     // Redirect setelah berhasil menyimpan
