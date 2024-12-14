@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('numberphone');
             $table->string('nik');
             $table->string('gender');
+            $table->string('profileImage')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('usertype')->default('user');

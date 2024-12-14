@@ -11,7 +11,7 @@
         <div id="main" class="flex flex-col gap-12 w-[400px] text-white pb-14 mt-10">
             <div id="profileImage & username" class="flex gap-6 items-center">
                 <div class="w-[120px] h-[120px] bg-slate-50 rounded-full">
-                    <img src="" alt="foto profil">
+                    <img src="{{ asset('storage/'.$user->profileImage) }}" alt="foto profil" class="h-full w-full rounded-full object-cover">
                 </div>
                 <p class="font-semibold text-[20px]">{{ $user->username }}</p>
             </div>

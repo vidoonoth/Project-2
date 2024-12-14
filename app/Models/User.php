@@ -26,6 +26,7 @@ class User extends Authenticatable
         'nik',
         'gender',
         'password',
+        'profieImage',
     ];
 
     /**

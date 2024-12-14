@@ -21,6 +21,7 @@ class DiterimaNotification extends Notification
         //
         $this->pengusulan = $pengusulan;
         $this->pengusulan = $pengusulan->isbn;
+        $this->pengusulan = $pengusulan->user;
     }
 
     /**
@@ -36,11 +37,11 @@ class DiterimaNotification extends Notification
     // Simpan notifikasi dalam database
     public function toDatabase($notifiable)
     {
-        return [
-            'message' => "Usulan buku dengan isbn: '{$this->isbn}' diterima. ",
-            'messages' => 'Usulan'. 'sedang kami proses, mohon untuk menunggu. terimakasih sudah melakukan pengusulan',
+        return [            
+            'message' => 'Usulan'. 'sedang kami proses, mohon untuk menunggu. terimakasih sudah melakukan pengusulan',
             'name' => is_object($this->pengusulan) ? $this->pengusulan->name : 'Nama tidak tersedia',
-            'isbn' => $this->isbn,
+            'username' => is_object($this->pengusulan) ? $this->pengusulan->user : 'Nama tidak tersedia',
+            'isbn' => $this->isbn,            
             'status' => 'diproses',
         ];
     }
