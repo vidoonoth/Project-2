@@ -23,6 +23,10 @@
         * {
             font-family: 'Poppins';
         }
+        /* #edit-show-delete{
+            display: flex;
+            margin: auto;
+        } */
 
         input[type="search"]::-webkit-search-results-button {
             -webkit-appearance: none;
@@ -45,9 +49,11 @@
         }
         .scrollbar::-webkit-scrollbar {
             width: 8px;
+            height: 18px; 
         }
         .scrollbar::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #d3d3d3;
+            border-radius: 10px;
         }
         .scrollbar::-webkit-scrollbar-thumb {
             background-color: #60a5fa;
@@ -55,6 +61,21 @@
             border: 2px solid #f1f1f1;
         }
         .scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #4594f4;
+        }
+        .scrollbar-pengusulan::-webkit-scrollbar {
+            width: 16px;
+        }
+        .scrollbar-pengusulan::-webkit-scrollbar-track {
+            background: #cfcfcf;
+            border-radius: 10px;
+        }
+        .scrollbar-pengusulan::-webkit-scrollbar-thumb {
+            background-color: #60a5fa;
+            border-radius: 10px;
+            border: 2px solid #f1f1f1;
+        }
+        .scrollbar-pengusulan::-webkit-scrollbar-thumb:hover {
             background: #4594f4;
         }
     </style>

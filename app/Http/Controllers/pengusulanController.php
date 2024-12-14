@@ -44,25 +44,28 @@ class pengusulanController extends Controller
     //     return view('riwayatPengusulan', compact('pengusulan')); // Mengirim data buku ke view
     // }
     public function dataPengusulan(Request $request)
-    {
-        // $pengusulan = Pengusulan::all(); // Mengambil semua data buku
-        $pengusulan = Pengusulan::where('user_id')->get();
-        // $sesi = auth()->id();
-        $search = $request->input('search');
+{
+    $search = $request->input('search');
+    $sort = $request->input('sort', 'date'); // Default sort by 'date'
+    $order = $request->input('order', 'asc'); // Default order is ascending
 
-        // Query untuk mencari data berdasarkan judul atau status query builder
-        $pengusulan = Pengusulan::when($search, function ($query, $search) {
-            return $query->where('bookTitle', 'like', '%' . $search . '%')
-                        ->orWhere('genre', 'like', '%' . $search . '%')
-                        ->orWhere('isbn', 'like', '%' . $search . '%')
-                        ->orWhere('author', 'like', '%' . $search . '%')
-                        ->orWhere('publicationYear', 'like', '%' . $search . '%')
-                        ->orWhere('publisher', 'like', '%' . $search . '%')
-                        ->orWhere('date', 'like', '%' . $search . '%')
-                        ->orWhere('status', 'like', '%' . $search . '%');
-        })->get();
-        return view('admin.dataPengusulan', compact('pengusulan')); // Mengirim data buku ke view
-    }
+    $pengusulan = Pengusulan::when($search, function ($query, $search) {
+        return $query->where('bookTitle', 'like', '%' . $search . '%')
+                     ->orWhere('genre', 'like', '%' . $search . '%')
+                     ->orWhere('isbn', 'like', '%' . $search . '%')
+                     ->orWhere('author', 'like', '%' . $search . '%')
+                     ->orWhere('publicationYear', 'like', '%' . $search . '%')
+                     ->orWhere('publisher', 'like', '%' . $search . '%')
+                     ->orWhere('date', 'like', '%' . $search . '%')
+                     ->orWhere('status', 'like', '%' . $search . '%')
+                     ->orWhere('id_user', 'like', '%' . $search . '%');
+    })
+    ->orderBy($sort, $order) // Add sorting logic
+    ->paginate(10);
+
+    return view('admin.dataPengusulan', compact('pengusulan', 'sort', 'order')); // Pass sort and order to the view
+}
+
     public function cetakPengusulan(Request $request)
     {
         $pengusulan = Pengusulan::all(); // Mengambil semua data buku

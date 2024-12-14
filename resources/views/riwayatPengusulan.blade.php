@@ -42,24 +42,24 @@
             <h1 class="text-lg font-medium text-gray-600">Tidak ada riwayat pengusulan</h1>
         </div>
     @else
-        <div class="mt-[80px] mb-[180px] rounded-lg w-[92%] h-[300px] overflow-auto m-auto">
-            <table class="table-auto bg-white rounded-lg shadow-md m-auto w-full overflow-scroll">
-                <thead class="bg-blue-400 text-white rounded-lg">
-                    <tr class="rounded-lg">
-                        <th class="px-4 py-2 text-center text-[14px] font-medium rounded-sm">No</th>
-                        <th class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Judul Buku</th>
-                        <th class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Genre</th>
-                        <th class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">ISBN</th>
-                        <th class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Penulis</th>
-                        <th class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Tahun Terbit</th>
-                        <th class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Penerbit</th>
-                        <th class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Tanggal Usulan</th>
-                        <th class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Gambar Buku</th>
-                        <th class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Status</th>
-                        <th class="px-4 py-2 text-center text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Aksi</th> <!-- Mengubah text-left ke text-center -->
+        <div class="relative mt-[80px] mb-[180px] rounded-lg max-w-[95%] h-[300px] scrollbar-pengusulan overflow-y-auto overflow-x-auto m-auto">
+            <table class="bg-white rounded-lg shadow-md m-auto w-full overflow-scroll">
+                <thead class="bg-blue-400 text-white rounded-lg w-full">
+                    <tr class="rounded-lg w-full">
+                        <th scope="col" class="px-4 py-2 text-center text-[14px] font-medium rounded-sm">No</th>
+                        <th scope="col" class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Judul Buku</th>
+                        <th scope="col" class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Genre</th>
+                        <th scope="col" class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">ISBN</th>
+                        <th scope="col" class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Penulis</th>
+                        <th scope="col" class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Tahun Terbit</th>
+                        <th scope="col" class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Penerbit</th>
+                        <th scope="col" class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Tanggal Usulan</th>
+                        <th scope="col" class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Gambar Buku</th>
+                        <th scope="col" class="px-4 py-2 text-left text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Status</th>
+                        <th scope="col" class="px-4 py-2 text-center text-[14px] font-medium border-l border-r border-slate-200 rounded-sm">Aksi</th> <!-- Mengubah text-left ke text-center -->
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="w-[1000px]">
                     @foreach ($pengusulan as $item)
                         <tr class="border-b border-slate-200 hover:bg-gray-100">
                             <td class="px-4 py-2 text-center">{{ $loop->iteration }}</td> <!-- Menambah text-center -->
@@ -77,8 +77,12 @@
                                     Tidak ada gambar
                                 @endif
                             </td>
-                            <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->status }}</td>
-                            <td class="px-4 py-2 text-center  inline-flex items-center justify-center gap-2"> 
+                            <td class="px-4 py-2 border-l border-r border-slate-200">
+                                <p class="text-center {{ $item->status == 'diterima' ? 'bg-green-600 px-2 py-2 rounded-md text-white' : ($item->status == 'ditolak' ? 'bg-red-600 px-2 py-2 rounded-md text-white' : ($item->status == 'diproses' ? 'bg-blue-600 px-2 py-2 rounded-md text-white' : 'bg-yellow-500 px-2 py-2 rounded-md text-white')) }}">
+                                    {{ $item->status }}
+                                </p>
+                            </td>
+                            <td id="edit-show-delete" class="px-4 py-10 flex gap-2 items-center"> 
                                 <a href="{{ route('pengusulan.edit', $item->id) }}" class="font-medium text-[14px] hover:text-blue-600 text-slate-50 hover:bg-slate-200 bg-blue-400 py-1 px-1 dark:text-blue-500 text-center rounded-md">Edit</a>
                                 <form action="{{ route('pengusulan.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Anda Yakin Ingin Menghapusnya?');">
                                     @csrf

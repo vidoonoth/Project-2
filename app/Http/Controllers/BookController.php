@@ -46,15 +46,15 @@ class BookController extends Controller
     }
     public function koleksiBukuHome(Request $request)
     {
-        $books = Book::take(6)->get(); // Mengambil hanya 6 data buku
+        $books = Book::take(10)->get(); // Mengambil hanya 6 data buku
         return view('HomePage', compact('books')); // Mengirim data buku ke view
     }
 
-    public function rekomendasiBuku()
-    {
-        $books = Book::all(); // Mengambil semua data buku
-        return view('homePage', compact('books')); // Mengirim data buku ke view
-    }
+    // public function rekomendasiBuku()
+    // {
+    //     $books = Book::all(); // Mengambil semua data buku
+    //     return view('homePage', compact('books')); // Mengirim data buku ke view
+    // }
 
 
     // public function show($id)

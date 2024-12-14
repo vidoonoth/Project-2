@@ -22,11 +22,11 @@
     {{-- books collection --}}
     <div id="bookCollection" class="pl-11 pr-7 mt-12">
         <div class="flex justify-between">
-            <p class="text-xl font-medium w-fit border-b border-slate-950">Koleksi Buku</p>
+            <h1 class="text-xl font-medium w-fit border-b border-slate-950">Koleksi Buku</h1>
             @if (Route::has('login'))
             @if (Route::has('register'))
             @auth
-                <a href="{{ route('koleksiBuku') }}" class="bg-blue-400 text-center py-2 px-2 text-white hover:bg-blue-500 rounded-lg">Lihat Selengkapnya</a>
+                <a href="{{ route('koleksiBuku') }}" class="bg-blue-400 text-center py-2 px-2 text-white hover:bg-blue-500 rounded-lg text-[14px]">Lihat Selengkapnya</a>
             @else
             <a href="{{ route('login') }}" class="bg-blue-400 text-center py-2 px-2 text-white hover:bg-blue-500 rounded-lg">Lihat Selengkapnya</a>
             @endauth
@@ -34,77 +34,26 @@
             @endif
         </div>
 
-        <div class="scrollbar h-fit cards my-[20px] flex w-full gap-[30px] mt-8 px-5 overflow-scroll ">
+        <div class="scrollbar h-fit cards my-[20px] flex w-full gap-[30px] mt-8 overflow-scroll ">
             @if($books->isEmpty())
-    <p class="text-center my-[200px] text-[20px]">Buku Tidak Tersedia.</p>
-    @else
-    <div class="cards my-[10px] flex gap-[30px] mt-8 px-5 justify-center">
-        @foreach ($books as $book)
-            <x-card
-                bookImage="{{ $book->bookImage }}"
-                bookTitle="{{ $book->bookTitle }}"
-                isbn="{{ $book->isbn }}"
-                genre="{{ $book->genre }}"
-                author="{{ $book->author }}"
-                yearPublication="{{ $book->publicationYear }}"
-                publisher="{{ $book->publisher }}"
-                description="{{ $book->description }}"
-                synopsis="{{ $book->synopsis }}"
-            />
-        @endforeach
-    </div>
-     @endif
-            {{-- <div id="buku1" class="" >
-            <x-card
-                bookImage="atomic.jpg"
-                bookTitle="Atomic Habits"
-                isbn="9786020667188"
-                genre="Self Improvement"
-                author="James Clear"
-                yearPublication="gak tau"
-                publisher="Gramedia Pustaka utama"
-                description="Deskripsi singkat tentang buku 1."
-            />
+                <p class="text-center my-[200px] text-[20px]">Buku Tidak Tersedia.</p>
+            @else
+            <div class="cards my-[10px] flex gap-[30px] mt-8 justify-center">
+            @foreach ($books as $book)
+                <x-card
+                    bookImage="{{ $book->bookImage }}"
+                    bookTitle="{{ $book->bookTitle }}"
+                    isbn="{{ $book->isbn }}"
+                    genre="{{ $book->genre }}"
+                    author="{{ $book->author }}"
+                    yearPublication="{{ $book->publicationYear }}"
+                    publisher="{{ $book->publisher }}"
+                    description="{{ $book->description }}"
+                    synopsis="{{ $book->synopsis }}"
+                />
+            @endforeach
             </div>
-
-            <div id="buku2" class="col-md-4">
-            <x-card
-                bookImage="devotion.jpeg"
-                bookTitle="The Devotion of Suspect X"
-                isbn="123-4567890124"
-                genre="Non-Fiksi"
-                author="Nama Penulis 2"
-                yearPublication="2022"
-                publisher="Nama Penerbit 2"
-                description="Deskripsi singkat tentang buku 2."
-            />
-            </div>
-
-            <div id="buku3" class="col-md-4">
-            <x-card
-                bookImage="pelajaran.jpeg"
-                bookTitle="Pelajaran Menyetir"
-                isbn="123-4567890124"
-                genre="Non-Fiksi"
-                author="Nama Penulis 2"
-                yearPublication="2022"
-                publisher="Nama Penerbit 2"
-                description="Deskripsi singkat tentang buku 2."
-            />
-            </div>
-
-            <div id="buku4" class="col-md-4" >
-            <x-card
-                bookImage="filosofi.jpeg"
-                bookTitle="Filosofi Teras"
-                isbn="123-4567890124"
-                genre="Non-Fiksi"
-                author="Nama Penulis 2"
-                yearPublication="2022"
-                publisher="Nama Penerbit 2"
-                description="Deskripsi singkat tentang buku 2."
-            />
-            </div> --}}
+            @endif
         </div>
     </div>
 
@@ -140,7 +89,7 @@
     </div>
 
     {{-- lokasi --}}
-    <div id="lokasi" class="px-11 py-8">
+    <div id="lokasi" class="px-11 py-8 mb-[200px]">
         <p class="text-lg sm:text-xl mb-6 sm:mb-8 font-medium w-fit border-b border-slate-950">Lokasi</p>
 
         <div id="kalimat&lokasi" class="flex flex-col md:flex-row gap-8 md:gap-12 items-center">

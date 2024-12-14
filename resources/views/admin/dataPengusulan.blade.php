@@ -108,8 +108,11 @@
                                     {{ $item->date }}
                                 </td>
                                 <td class="px-6 py-4 border-l border-r border-slate-200">
-                                    {{ $item->status }}
+                                    <p class="text-center {{ $item->status == 'diterima' ? 'bg-green-600 px-2 py-2 rounded-md text-white' : ($item->status == 'ditolak' ? 'bg-red-600 px-2 py-2 rounded-md text-white' : ($item->status == 'diproses' ? 'bg-blue-600 px-2 py-2 rounded-md text-white' : 'bg-yellow-500 px-2 py-2 rounded-md text-white')) }}">
+                                        {{ $item->status }}
+                                    </p>                                    
                                 </td>
+                                
                                 <td class="px-6 py-4 flex gap-2 items-center justify-center">
                                     <a href="{{route('cetakPengusulan')}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
