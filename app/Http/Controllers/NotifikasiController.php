@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Notifikasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NotifikasiController extends Controller
 {
@@ -20,7 +21,8 @@ class NotifikasiController extends Controller
     }
     public function notifUser()
     {
-        $notifikasi = Notifikasi::all();
+        // $notifikasi = Notifikasi::all();
+        $notifikasi = Auth::user()->notifications;
         return view('notifikasiUser', compact('notifikasi'));
     }
 

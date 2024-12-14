@@ -76,21 +76,28 @@
             @endisset --}}
 
         <!-- Page Content -->
-        <main class="">
-            <h1>Notifikasi</h1>
+        <main class="px-8 py-8">
+            <p class="text-xl font-medium w-fit border-b border-slate-950 mb-10">Notifikasi Pengusulan</p>
 
         @if($notifikasi->isEmpty())
             <p>Anda tidak memiliki notifikasi.</p>
         @else
-            <ul>
-                @foreach($notifikasi as $notif)
-                    <li>
-                        {{ $notif->message['message'] }}
-                        <br>
-                        {{-- <small>{{ $notification->created_at->diffForHumans() }}</small> --}}
-                    </li>
-                @endforeach
+        @foreach($notifikasi as $notif)
+            <ul class="flex flex-col gap-2 my-4 bg-blue-400 px-4 py-4 rounded-md text-slate-50">                
+                <li>
+                    <p class="">{{ $notif->data['name'] ?? 'Tidak ada nama' }}</p>
+                </li>
+                <li>
+                    <p class="">{{ $notif->data['isbn'] ?? 'Tidak ada nama' }}</p>
+                </li>
+                <li>
+                    <p class="">Status pengusulan: {{ $notif->data['status'] ?? 'Tidak ada status' }}</p>
+                </li>                
+                <li class="text-inherit">
+                    <p class="">Pesan : {{ $notif->data['message'] ?? 'Tidak ada pesan' }}</p>
+                </li>
             </ul>
+        @endforeach
         @endif
 
         </main>

@@ -8,6 +8,8 @@ use App\Models\Pengusulan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+// use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Notification;
 use App\Notifications\DiterimaNotification;
 
 class pengusulanController extends Controller
@@ -32,9 +34,10 @@ class pengusulanController extends Controller
                         ->orWhere('publicationYear', 'like', '%' . $search . '%')
                         ->orWhere('publisher', 'like', '%' . $search . '%')
                         ->orWhere('date', 'like', '%' . $search . '%')
-                        ->orWhere('status', 'like', '%' . $search . '%')
-                        ->orWhere('id_user', 'like', '%' . $search . '%');
-        })->get();
+                        ->orWhere('status', 'like', '%' . $search . '%');                        
+        })
+        ->orderBy('created_at', 'desc')
+        ->get();
         // Kirim data usulan ke tampilan riwayatPengusulan
         return view('riwayatPengusulan', compact('pengusulan'));
     }
@@ -44,27 +47,30 @@ class pengusulanController extends Controller
     //     return view('riwayatPengusulan', compact('pengusulan')); // Mengirim data buku ke view
     // }
     public function dataPengusulan(Request $request)
-{
-    $search = $request->input('search');
-    $sort = $request->input('sort', 'date'); // Default sort by 'date'
-    $order = $request->input('order', 'asc'); // Default order is ascending
-
-    $pengusulan = Pengusulan::when($search, function ($query, $search) {
-        return $query->where('bookTitle', 'like', '%' . $search . '%')
-                     ->orWhere('genre', 'like', '%' . $search . '%')
-                     ->orWhere('isbn', 'like', '%' . $search . '%')
-                     ->orWhere('author', 'like', '%' . $search . '%')
-                     ->orWhere('publicationYear', 'like', '%' . $search . '%')
-                     ->orWhere('publisher', 'like', '%' . $search . '%')
-                     ->orWhere('date', 'like', '%' . $search . '%')
-                     ->orWhere('status', 'like', '%' . $search . '%')
-                     ->orWhere('id_user', 'like', '%' . $search . '%');
-    })
-    ->orderBy($sort, $order) // Add sorting logic
-    ->paginate(10);
-
-    return view('admin.dataPengusulan', compact('pengusulan', 'sort', 'order')); // Pass sort and order to the view
-}
+    {
+        $search = $request->input('search');
+    
+        // Query untuk mencari data berdasarkan pencarian
+        $pengusulan = Pengusulan::when($search, function ($query, $search) {
+            return $query->where('bookTitle', 'like', '%' . $search . '%')
+                        ->orWhere('genre', 'like', '%' . $search . '%')
+                        ->orWhere('isbn', 'like', '%' . $search . '%')
+                        ->orWhere('author', 'like', '%' . $search . '%')
+                        ->orWhere('publicationYear', 'like', '%' . $search . '%')
+                        ->orWhere('publisher', 'like', '%' . $search . '%')
+                        ->orWhere('date', 'like', '%' . $search . '%')
+                        ->orWhere('status', 'like', '%' . $search . '%')
+                        // Mencari berdasarkan nama user
+                        ->orWhereHas('user', function($query) use ($search) {
+                            $query->where('name', 'like', '%' . $search . '%');
+                        });
+        })
+        ->orderBy('created_at', 'desc')
+        ->get();
+    
+        return view('admin.dataPengusulan', compact('pengusulan')); // Mengirim data buku ke view
+    }
+    
 
     public function cetakPengusulan(Request $request)
     {
@@ -117,7 +123,7 @@ class pengusulanController extends Controller
     }
 
     // Simpan data buku ke dalam database dengan user_id
-    Pengusulan::create([
+    $pengusulan = Pengusulan::create([
         'bookTitle' => $request->bookTitle,
         'genre' => $request->genre,
         'isbn' => $request->isbn,
@@ -129,10 +135,13 @@ class pengusulanController extends Controller
         'status' => "diproses",  // Status default        
         'user_id' => Auth::id(),
     ]);
+    $user = Auth::user();
+    Notification::send($user, new DiterimaNotification($pengusulan));
+    
 
     // Redirect setelah berhasil menyimpan
     return redirect()->route('pengusulan.index')->with('success', 'Usulan buku berhasil diajukan!');
-}
+    }
 
 
 

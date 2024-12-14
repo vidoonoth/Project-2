@@ -16,9 +16,11 @@ use App\Http\Controllers\NotifikasiController;
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Route::resource('profile', ProfileController::class)->middleware('auth');
+    Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/homePage', [BookController::class, 'koleksiBukuHome'])->name('homePage');                                                                
     Route::resource('pengusulan', pengusulanController::class)->middleware('auth');
     // route::get('/pengusulan', [pengusulanController::class, 'index'])->name('riwayatPengusulan');
@@ -74,9 +76,9 @@ Route::get('/koleksiBuku', [BookController::class, 'koleksiBuku'])->name('koleks
 
 
 
-Route::get('/profil', function () {
-    return view('profil');
-});
+// Route::get('/profil', function () {
+//     return view('profil');
+// });
 
 Route::get('/', [BookController::class, 'koleksiBukuHome'])->name('home');
 // Route::get('/', function () {
@@ -88,9 +90,9 @@ Route::get('/', [BookController::class, 'koleksiBukuHome'])->name('home');
 // Route::get('/koleksiBuku', function () {
 //     return view('koleksiBuku');
 // });
-Route::get('/pengaturanAkun', function () {
-    return view('pengaturanAkun');
-});
+// Route::get('/pengaturanAkun', function () {
+//     return view('pengaturanAkun');
+// });
 
 // Route::get('/homePage', [HomePageController::class, 'index'])->middleware(['auth', 'verified'])->name('homePage');
 // Route::get('/homePage', function () {

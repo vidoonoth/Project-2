@@ -18,7 +18,7 @@
             </div>
         @endif
 
-        <div id="formPengusulan" class="flex w-[90%] my-4">
+        <div id="formPengusulan" class="flex w-full my-4">
             <form action="{{ route('pengusulan.update', $pengusulan->id) }}" method="POST" enctype="multipart/form-data" class="bg-blue-400 text-slate-950 text-3xl px-10 w-full py-10 rounded-xl flex flex-col gap-[10px]">
                 @csrf
                 @method('PUT')
@@ -70,7 +70,7 @@
                     </div>
                     @if($pengusulan->bookImage)
                             <div class="mt-2 w-full">
-                                <img src="{{ asset('storage/' . $pengusulan->bookImage) }}" alt="Gambar Buku" class="w-[500px] h-[200px] object-cover rounded">
+                                <img src="{{ asset('storage/' . $pengusulan->bookImage) }}" alt="Gambar Buku" class="object-cover rounded">
                             </div>
                     @endif
 

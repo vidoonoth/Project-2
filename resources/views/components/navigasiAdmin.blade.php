@@ -32,12 +32,9 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link class="text-slate-950 hover:bg-slate-200" :href="route('profile.edit')">
+                        {{-- <x-dropdown-link class="text-slate-950 hover:bg-slate-200" :href="route('profile.edit')">
                             {{ __('Profil') }}
-                        </x-dropdown-link>
-                        {{-- <x-dropdown-link :href="route('pengaturanAkun')">
-                            {{ __('Profil') }}
-                        </x-dropdown-link> --}}
+                        </x-dropdown-link> --}}                    
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}" class="text-slate-900">
@@ -96,9 +93,9 @@
             </div> --}}
 
             <div class="mt-2 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+                {{-- <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
-                </x-responsive-nav-link>
+                </x-responsive-nav-link> --}}
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

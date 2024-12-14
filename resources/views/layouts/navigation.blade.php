@@ -68,7 +68,7 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link class="text-slate-950 hover:bg-slate-200" :href="route('profile.edit')">
+                            <x-dropdown-link class="text-slate-950 hover:bg-slate-200" :href="route('profile.index')">
                                 {{ __('Profil') }}
                             </x-dropdown-link>
                             {{-- <x-dropdown-link :href="route('pengaturanAkun')">
@@ -134,7 +134,7 @@
             </div> --}}
 
             <div class="mt-2 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+                <x-responsive-nav-link :href="route('profile.index')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
