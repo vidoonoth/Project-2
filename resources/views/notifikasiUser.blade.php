@@ -76,26 +76,52 @@
             @endisset --}}
 
         <!-- Page Content -->
-        <main class="px-8 py-8">
-            <p class="text-xl font-medium w-fit border-b border-slate-950 mb-10">Notifikasi Pengusulan</p>
+        <main class="px-8 py-8 min-h-screen ">
+            <div id="back" class="flex items-center gap-4 mb-10">
+                <button onclick="history.back()" class="">
+                    <i class="transition-colors duration-300 hover:bg-blue-400 hover:text-blue-50 px-2 py-5 rounded-md fa-solid fa-arrow-left fa-2xl" style="color: black;" onmouseover="this.style.color='white';" onmouseout="this.style.color='black';"></i>
+                </button>
+                <p class="text-xl font-medium w-fit border-b border-slate-950">Notifikasi Pengusulan</p>
+            </div>
 
         @if($notifikasi->isEmpty())
-            <p>Anda tidak memiliki notifikasi.</p>
+            <p class="font-semibold flex justify-center items-center text-center m-auto text-slate-950 h-[70%]">Tidak ada pemberitahuan.</p>
         @else
         @foreach($notifikasi as $notif)
-            <ul class="flex flex-col gap-2 my-4 bg-blue-400 px-4 py-4 rounded-md text-slate-50">                
-                <li>
-                    <p class="">{{ $notif->data['name'] ?? 'Tidak ada nama' }}</p>
-                </li>
-                <li>
-                    <p class="">{{ $notif->data['isbn'] ?? 'Tidak ada nama' }}</p>
-                </li>
-                <li>
-                    <p class="">Status pengusulan: {{ $notif->data['status'] ?? 'Tidak ada status' }}</p>
+            <ul id="card" class="flex flex-col gap-1 my-4 bg-slate-50 shadow-sm border border-slate-200 px-4 py-4 rounded-md text-slate-950">                
+                <li class="flex gap-3 {{ $notif->data['status'] == 'diproses' ? 'bg-blue-500' : ''}} w-fit py-2 px-2 text-slate-50 rounded-md mb-3 font-semibold">                    
+                    <p>{{ $notif->data['status'] ?? 'Tidak ada status' }}</p>
                 </li>                
-                <li class="text-inherit">
-                    <p class="">Pesan : {{ $notif->data['message'] ?? 'Tidak ada pesan' }}</p>
+                <li class="flex gap-3 text-inherit">
+                    <p class="font-semibold">Userame : </p>
+                    <p>{{ $notif->data['username'] ?? 'Tidak ada username' }}</p>
                 </li>
+                <li class="flex gap-3">
+                    <p class="font-semibold">Nama : </p>
+                    <p>{{ $notif->data['name'] ?? 'Tidak ada nama' }}</p>
+                </li>
+                <li class="flex gap-3">
+                    <p class="font-semibold">Isbn : </p>
+                    <p>{{ $notif->data['isbn'] ?? 'Tidak ada isbn' }}</p>
+                </li>
+                <li class="flex gap-3">
+                    <p class="font-semibold text-slate-950">Status Pengusulan: </p>
+                    <p>{{ $notif->data['status'] ?? 'Tidak ada status' }}</p>
+                </li>                
+                <li class="flex gap-3">
+                    <p class="font-semibold">Pesan : </p>
+                    <p>{{ $notif->data['message'] ?? 'Tidak ada pesan' }}</p>
+                </li>
+                <li class="flex gap-3">
+                    <form action="{{ route('hapusNotifikasi', $notif->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus notifikasi ini?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">
+                            Hapus
+                        </button>
+                    </form>
+                </li>
+
             </ul>
         @endforeach
         @endif

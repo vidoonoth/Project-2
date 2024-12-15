@@ -124,7 +124,7 @@
                                         Edit
                                     </a>
                                     <form class="flex items-center gap-1"
-                                          action="{{ route('pengusulan.destroy', $item->id) }}"
+                                          action="{{ route('hapusDataPengusulan', $item->id) }}"
                                           method="POST"
                                           onsubmit="return confirm('Anda Yakin Ingin Menghapusnya?');">
                                         @csrf

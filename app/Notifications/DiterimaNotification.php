@@ -38,11 +38,11 @@ class DiterimaNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [            
-            'message' => 'Usulan'. 'sedang kami proses, mohon untuk menunggu. terimakasih sudah melakukan pengusulan',
             'name' => is_object($this->pengusulan) ? $this->pengusulan->name : 'Nama tidak tersedia',
-            'username' => is_object($this->pengusulan) ? $this->pengusulan->user : 'Nama tidak tersedia',
-            'isbn' => $this->isbn,            
+            'username' => is_object($this->pengusulan) ? $this->pengusulan->username : 'Isbn tidak tersedia',
+            'isbn' =>$this->pengusulan->isbn ?? 'Isbn tidak tersedia',
             'status' => 'diproses',
+            'message' => 'Usulan sedang kami proses, mohon untuk menunggu. Terimakasih sudah melakukan pengusulan',
         ];
     }
 

@@ -13,6 +13,7 @@ use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\NotifikasiController;
+use App\Http\Models\NotifikasiPengusulan;
 
 
 Route::middleware('auth')->group(function () {
@@ -23,21 +24,34 @@ Route::middleware('auth')->group(function () {
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/homePage', [BookController::class, 'koleksiBukuHome'])->name('homePage');                                                                
     Route::resource('pengusulan', pengusulanController::class)->middleware('auth');
-    // route::get('/pengusulan', [pengusulanController::class, 'index'])->name('riwayatPengusulan');
-    Route::get('/dataPengusulan', [pengusulanController::class, 'dataPengusulan'])->name('dataPengusulan');
+    // route::get('/pengusulan', [pengusulanController::class, 'index'])->name('riwayatPengusulan');    
     Route::get('/dataPengusulan', [pengusulanController::class, 'dataPengusulan'])->name('dataPengusulan');
     Route::get('/dataPengusulan/{id}/edit', [PengusulanController::class, 'editDataPengusulan'])->name('editDataPengusulan');
     Route::get('/dataPengusulan/show', [PengusulanController::class, 'cetakPengusulan'])->name('cetakPengusulan');
     Route::put('/dataPengusulan/{id}', [PengusulanController::class, 'updateDataPengusulan'])->name('updateDataPengusulan');
+    Route::delete('/dataPengusulan/{id}', [pengusulanController::class, 'hapusData'])->name('hapusDataPengusulan');
+
+    Route::resource('notifikasi', NotifikasiController::class);
+    Route::get('/notifikasiUser', [NotifikasiController::class, 'notifUser'])->name('notifikasiUser')->middleware('auth');
+    Route::delete('/notifikasi/{id}', [NotifikasiController::class, 'hapusNotif'])->name('hapusNotifikasi');  
+
+    Route::get('admin/dataKoleksiBuku', function () {
+        return view('admin.dataKoleksiBuku');
+    });
+    Route::get('admin/dataInformasiPerpustakaan', function () {
+        return view('admin.dataInformasiPerpustakaan'); //
+    });
+    Route::get('admin/notifikasiPengusulan', function () {
+        return view('admin.notifikasiPengusulan');
+    });
 
 });
 
 Route::get('/dashboard', [DashboardAdminController::class, 'index'])->middleware(['auth', 'admin'])
                                                                         ->name('dashboard');
 
-Route::resource('notifikasi', NotifikasiController::class);
-Route::get('/notifikasiUser', [NotifikasiController::class, 'notifUser'])->name('notifikasiUser')
-                                                                                    ->middleware('auth');;
+                                                                                  
+
 
 
 // Route::get('/dashboard', [DashboardAdminController::class, 'index'])->middleware(['auth', 'admin'])
@@ -120,14 +134,6 @@ Route::view('/denahPeta', 'denahPeta')->name('denahPeta');
 // Route::get('admin/dataPengusulan', function () {
 //     return view('admin.dataPengusulan');
 // });
-Route::get('admin/dataKoleksiBuku', function () {
-    return view('admin.dataKoleksiBuku');
-});
-Route::get('admin/dataInformasiPerpustakaan', function () {
-    return view('admin.dataInformasiPerpustakaan'); //
-});
-Route::get('admin/notifikasiPengusulan', function () {
-    return view('admin.notifikasiPengusulan');
-});
+
 
 require __DIR__.'/auth.php';

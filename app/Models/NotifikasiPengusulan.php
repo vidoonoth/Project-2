@@ -8,8 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class NotifikasiPengusulan extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'status',
-        'isi',
-    ];
+
+    protected $table = 'notifications';
+
+    protected $keyType = 'string'; // UUID adalah string
+    public $incrementing = false;
+
+    // protected $fillable = [
+    //     'status',
+    //     'isi',
+    // ];
 }

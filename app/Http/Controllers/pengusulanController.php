@@ -15,6 +15,7 @@ use App\Notifications\DiterimaNotification;
 class pengusulanController extends Controller
 {
     
+    // untuk menampilkan pengusulan yang sudah diusulkan
     public function index(Request $request)
     {
         // $user = User::where('user_id');
@@ -41,63 +42,14 @@ class pengusulanController extends Controller
         // Kirim data usulan ke tampilan riwayatPengusulan
         return view('riwayatPengusulan', compact('pengusulan'));
     }
-    // public function riwayatPengusulan()
-    // {
-    //     $pengusulan = Pengusulan::all(); // Mengambil semua data buku
-    //     return view('riwayatPengusulan', compact('pengusulan')); // Mengirim data buku ke view
-    // }
-    public function dataPengusulan(Request $request)
-    {
-        $search = $request->input('search');
     
-        // Query untuk mencari data berdasarkan pencarian
-        $pengusulan = Pengusulan::when($search, function ($query, $search) {
-            return $query->where('bookTitle', 'like', '%' . $search . '%')
-                        ->orWhere('genre', 'like', '%' . $search . '%')
-                        ->orWhere('isbn', 'like', '%' . $search . '%')
-                        ->orWhere('author', 'like', '%' . $search . '%')
-                        ->orWhere('publicationYear', 'like', '%' . $search . '%')
-                        ->orWhere('publisher', 'like', '%' . $search . '%')
-                        ->orWhere('date', 'like', '%' . $search . '%')
-                        ->orWhere('status', 'like', '%' . $search . '%')
-                        // Mencari berdasarkan nama user
-                        ->orWhereHas('user', function($query) use ($search) {
-                            $query->where('name', 'like', '%' . $search . '%');
-                        });
-        })
-        ->orderBy('created_at', 'desc')
-        ->get();
-    
-        return view('admin.dataPengusulan', compact('pengusulan')); // Mengirim data buku ke view
-    }
-    
-
-    public function cetakPengusulan(Request $request)
-    {
-        $pengusulan = Pengusulan::all(); // Mengambil semua data buku
-        $search = $request->input('search');
-
-        // Query untuk mencari data berdasarkan judul atau status query builder
-        $pengusulan = Pengusulan::when($search, function ($query, $search) {
-            return $query->where('bookTitle', 'like', '%' . $search . '%')
-                        ->orWhere('genre', 'like', '%' . $search . '%')
-                        ->orWhere('isbn', 'like', '%' . $search . '%')
-                        ->orWhere('author', 'like', '%' . $search . '%')
-                        ->orWhere('publicationYear', 'like', '%' . $search . '%')
-                        ->orWhere('publisher', 'like', '%' . $search . '%')
-                        ->orWhere('date', 'like', '%' . $search . '%')
-                        ->orWhere('status', 'like', '%' . $search . '%');
-        })->get();
-        return view('admin.cetakPengusulan', compact('pengusulan')); // Mengirim data buku ke view
-    }
-
-
+    // logika untuk melakukan pengusulan
     public function create()
     {
-        //
         return view('pengusulan');
     }
 
+    // logic untuk pengusulan
     public function store(Request $request)
     {
 
@@ -143,10 +95,6 @@ class pengusulanController extends Controller
     return redirect()->route('pengusulan.index')->with('success', 'Usulan buku berhasil diajukan!');
     }
 
-
-
-
-
     // public function show(string $id)
     // {
     //     $pengusulan = Pengusulan::all();
@@ -155,18 +103,13 @@ class pengusulanController extends Controller
     //     // compact('pengusulan')
     // }
 
-    public function edit($id)
-    {
+    //pengusul untuk berpindah ke halaman editPengusulan
+    public function edit($id){
         $pengusulan = Pengusulan::findOrFail($id);
         return view('editPengusulan', compact('pengusulan'));
     }
 
-    public function editDataPengusulan($id)
-    {
-        $pengusulan = Pengusulan::findOrFail($id);
-        return view('admin.editDataPengusulan', compact('pengusulan'));
-    }
-
+    //logic pengusul untuk mengupdate usulan
     public function update(Request $request, $id)
     {
         $pengusulan = Pengusulan::findOrFail($id);
@@ -208,46 +151,54 @@ class pengusulanController extends Controller
 
         return redirect()->route('pengusulan.index')->with('success', 'Book updated successfully');
     }
-    // public function updateDataPengusulan(Request $request, $id)
-    // {
-    //     $pengusulan = Pengusulan::findOrFail($id);
+     
+    //pengusul untuk menghapus usulan
+    public function destroy($id)
+    {
+        $pengusulan = Pengusulan::findOrFail($id);
+        if ($pengusulan->bookImage) {
+            Storage::disk('public')->delete($pengusulan->bookImage);
+        }
+        $pengusulan->delete();
 
-    //     // Validasi hanya untuk kolom status
-    //     $request->validate([
-    //         'status' => 'required|string|max:255', // Validasi status
-    //     ]);
+        return redirect()->route('pengusulan.index')->with('success', 'Book deleted successfully');
+    }
+    
 
-    //     // Hanya memperbarui status
-    //     $pengusulan->status = $request->status;
-
-    //     // Simpan perubahan status
-    //     // $pengusulan->save();
-
-    //     // if ($request->hasFile('bookImage')) {
-    //     //     // Hapus gambar lama jika ada
-    //     //     if ($pengusulan->bookImage) {
-    //     //         Storage::disk('public')->delete($pengusulan->bookImage);
-    //     //     }
-    //     //     // Simpan gambar baru
-    //     //     $pengusulan->bookImage = $request->file('bookImage')->store('book_images', 'public');
-    //     //     } elseif (!$request->hasFile('bookImage') && $pengusulan->bookImage) {
-    //     //     // Jika tidak ada gambar baru dan gambar sebelumnya ada, set gambar ke null
-    //     //         $pengusulan->bookImage = null;
-    //     //     }
-
-    //     $pengusulan->update(Request: $request->all());
-
-    //     // Redirect ke halaman index dengan pesan sukses
-    //     return redirect()->route('dataPengusulan')->with('success', 'Status updated successfully');
-    // }
-
-
-
-    /**
-     * Remove the specified resource from storage.
-     */
-
-     public function updateDataPengusulan(Request $request, $id)
+    // admin ------------ admin -------- admin --- admin---------- admin------- admin--------------------------------
+    public function dataPengusulan(Request $request){
+        $search = $request->input('search');
+    
+        // Query untuk mencari data berdasarkan pencarian
+        $pengusulan = Pengusulan::when($search, function ($query, $search) {
+            return $query->where('bookTitle', 'like', '%' . $search . '%')
+                        ->orWhere('genre', 'like', '%' . $search . '%')
+                        ->orWhere('isbn', 'like', '%' . $search . '%')
+                        ->orWhere('author', 'like', '%' . $search . '%')
+                        ->orWhere('publicationYear', 'like', '%' . $search . '%')
+                        ->orWhere('publisher', 'like', '%' . $search . '%')
+                        ->orWhere('date', 'like', '%' . $search . '%')
+                        ->orWhere('status', 'like', '%' . $search . '%')
+                        // Mencari berdasarkan nama user
+                        ->orWhereHas('user', function($query) use ($search) {
+                            $query->where('name', 'like', '%' . $search . '%');
+                        });
+        })
+        ->orderBy('created_at', 'desc')
+        ->get();
+    
+        return view('admin.dataPengusulan', compact('pengusulan')); // Mengirim data buku ke view
+    }
+    
+    //admin untuk pindah ke halaman edit data usulan
+    public function editDataPengusulan($id)
+    {
+        $pengusulan = Pengusulan::findOrFail($id);
+        return view('admin.editDataPengusulan', compact('pengusulan'));
+    }
+    
+    //logika admin untuk mengupdate data usulan
+    public function updateDataPengusulan(Request $request, $id)
      {
          // Cari data pengusulan berdasarkan ID
          $pengusulan = Pengusulan::findOrFail($id);
@@ -267,7 +218,8 @@ class pengusulanController extends Controller
          return redirect()->route('dataPengusulan')->with('success', 'Status updated successfully');
      }
 
-    public function destroy($id)
+    // admin untuk hapus data usulan
+    public function hapusData($id)
     {
         $pengusulan = Pengusulan::findOrFail($id);
         if ($pengusulan->bookImage) {
@@ -275,6 +227,26 @@ class pengusulanController extends Controller
         }
         $pengusulan->delete();
 
-        return redirect()->route('pengusulan.index')->with('success', 'Book deleted successfully');
+        return redirect()->route('dataPengusulan')->with('success', 'Book deleted successfully');
+    }
+
+    //admin untuk mencetak data usulan
+    public function cetakPengusulan(Request $request)
+    {
+        $pengusulan = Pengusulan::all(); // Mengambil semua data buku
+        $search = $request->input('search');
+
+        // Query untuk mencari data berdasarkan judul atau status query builder
+        $pengusulan = Pengusulan::when($search, function ($query, $search) {
+            return $query->where('bookTitle', 'like', '%' . $search . '%')
+                        ->orWhere('genre', 'like', '%' . $search . '%')
+                        ->orWhere('isbn', 'like', '%' . $search . '%')
+                        ->orWhere('author', 'like', '%' . $search . '%')
+                        ->orWhere('publicationYear', 'like', '%' . $search . '%')
+                        ->orWhere('publisher', 'like', '%' . $search . '%')
+                        ->orWhere('date', 'like', '%' . $search . '%')
+                        ->orWhere('status', 'like', '%' . $search . '%');
+        })->get();
+        return view('admin.cetakPengusulan', compact('pengusulan')); // Mengirim data buku ke view
     }
 }
