@@ -88,41 +88,44 @@
             <p class="font-semibold flex justify-center items-center text-center m-auto text-slate-950 h-[70%]">Tidak ada pemberitahuan.</p>
         @else
         @foreach($notifikasi as $notif)
-            <ul id="card" class="flex flex-col gap-1 my-4 bg-slate-50 shadow-sm border border-slate-200 px-4 py-4 rounded-md text-slate-950">                
-                <li class="flex gap-3 {{ $notif->data['status'] == 'diproses' ? 'bg-blue-500' : ''}} w-fit py-2 px-2 text-slate-50 rounded-md mb-3 font-semibold">                    
+            <div id="card" class="flex flex-col gap-3 my-4 bg-slate-50 shadow-sm border border-slate-200 px-4 py-4 rounded-md text-slate-950">                
+                <div class="flex gap-3 {{ $notif->data['status'] == 'diproses' ? 'bg-blue-500' : ''}} w-fit py-2 px-2 text-slate-50 rounded-md mb-3 font-semibold">                    
                     <p>{{ $notif->data['status'] ?? 'Tidak ada status' }}</p>
-                </li>                
-                <li class="flex gap-3 text-inherit">
-                    <p class="font-semibold">Userame : </p>
-                    <p>{{ $notif->data['username'] ?? 'Tidak ada username' }}</p>
-                </li>
-                <li class="flex gap-3">
-                    <p class="font-semibold">Nama : </p>
-                    <p>{{ $notif->data['name'] ?? 'Tidak ada nama' }}</p>
-                </li>
-                <li class="flex gap-3">
-                    <p class="font-semibold">Isbn : </p>
-                    <p>{{ $notif->data['isbn'] ?? 'Tidak ada isbn' }}</p>
-                </li>
-                <li class="flex gap-3">
-                    <p class="font-semibold text-slate-950">Status Pengusulan: </p>
-                    <p>{{ $notif->data['status'] ?? 'Tidak ada status' }}</p>
-                </li>                
-                <li class="flex gap-3">
-                    <p class="font-semibold">Pesan : </p>
-                    <p>{{ $notif->data['message'] ?? 'Tidak ada pesan' }}</p>
-                </li>
-                <li class="flex gap-3">
+                </div>
+
+                <ul>
+                    <li class="flex gap-3 text-inherit">
+                        <p class="font-semibold">Userame : </p>
+                        <p>{{ $notif->data['username'] ?? 'Tidak ada username' }}</p>
+                    </li>
+                    <li class="flex gap-3">
+                        <p class="font-semibold">Nama : </p>
+                        <p>{{ $notif->data['name'] ?? 'Tidak ada nama' }}</p>
+                    </li>
+                    <li class="flex gap-3">
+                        <p class="font-semibold">Isbn : </p>
+                        <p>{{ $notif->data['isbn'] ?? 'Tidak ada isbn' }}</p>
+                    </li>
+                    <li class="flex gap-3">
+                        <p class="font-semibold text-slate-950">Status Pengusulan: </p>
+                        <p>{{ $notif->data['status'] ?? 'Tidak ada status' }}</p>
+                    </li>                
+                    <li class="flex gap-3">
+                        <p class="font-semibold">Pesan : </p>
+                        <p>{{ $notif->data['message'] ?? 'Tidak ada pesan' }}</p>
+                    </li>
+                </ul>                
+                <div class="flex gap-3">
                     <form action="{{ route('hapusNotifikasi', $notif->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus notifikasi ini?');">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">
-                            Hapus
+                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-medium py-2 px-2 rounded-lg w-[200px]">
+                            Hapus Pesan
                         </button>
                     </form>
-                </li>
+                </div>
 
-            </ul>
+            </div>
         @endforeach
         @endif
 

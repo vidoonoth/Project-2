@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/homePage', [BookController::class, 'koleksiBukuHome'])->name('homePage');                                                                
     Route::resource('pengusulan', pengusulanController::class)->middleware('auth');
     // route::get('/pengusulan', [pengusulanController::class, 'index'])->name('riwayatPengusulan');    
