@@ -50,21 +50,15 @@ class BookController extends Controller
         return view('HomePage', compact('books')); // Mengirim data buku ke view
     }
 
-    // public function rekomendasiBuku()
-    // {
-    //     $books = Book::all(); // Mengambil semua data buku
-    //     return view('homePage', compact('books')); // Mengirim data buku ke view
-    // }
 
+    public function show($id)
+    {
+    // Ambil buku berdasarkan ID
+        $book = Book::findOrFail($id);
 
-    // public function show($id)
-    // {
-    // // Ambil buku berdasarkan ID
-    //     $book = Book::findOrFail($id);
-
-    // // Kembalikan view dengan data buku
-    //     return view('lihatBuku', compact('book'));
-    // }
+    // Kembalikan view dengan data buku
+        return view('admin.detailDataBuku', compact('book'));
+    }
 
 
     public function create()

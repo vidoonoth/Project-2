@@ -14,7 +14,7 @@ class informasiPerpustakaan extends Seeder
     public function run(): void
     {
         //
-        DB::table('informasi_perpustakaans')->insert([
+        DB::table('informasis')->insert([
             [
                 'title' => 'Sejarah Perpustakaan Indramayu',
                 'content'=> 'Sejarah beridirinya Perpustakaan Indramayu',

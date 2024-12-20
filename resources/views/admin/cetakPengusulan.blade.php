@@ -12,17 +12,7 @@
     </div>
     @endif --}}
     <div id="content" class="flex h-full min-h-full max-h-full">
-        <div class="px-[40px] w-[84%]">
-                <div class="flex justify-between items-center mt-8 ">
-                    <p class="text-xl font-semibold">Data Pengusulan</p>
-                    <form action="{{ route('dataPengusulan') }}" method="GET" class="flex items-center ">
-                        <input type="text" id="search" name="search" placeholder="Cari Data Usulan"
-                            class="p-2 border border-blue-600 rounded-l-[50px] focus:outline-none focus:ring-2 focus:ring-blue-600 placeholder:text-[14px] placeholder:text-slate-400">
-                        <button type="submit" class="p-2 w-full h-full bg-blue-600 text-slate-50 font-medium rounded-r-md hover:bg-blue-500 transition text-[14px]">
-                            <svg class="" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48"><g fill="none" stroke="white" stroke-linejoin="round" stroke-width="4"><path d="M21 38c9.389 0 17-7.611 17-17S30.389 4 21 4S4 11.611 4 21s7.611 17 17 17Z"/><path stroke-linecap="round" d="M26.657 14.343A7.98 7.98 0 0 0 21 12a7.98 7.98 0 0 0-5.657 2.343m17.879 18.879l8.485 8.485"/></g></svg>
-                        </button>
-                    </form>
-                </div>
+        <div class="px-[40px] w-[84%]">                
 
                 @if ($pengusulan->isEmpty())
                 <div class="text-center h-[100px] my-[100px]">
@@ -63,9 +53,6 @@
                                 <th scope="col" class="px-6 py-3 border-l border-r border-blue-500">
                                     Status
                                 </th>
-                                <th scope="col" class="px-6 py-3 border-l border-r border-blue-500">
-                                    Aksi
-                                </th>
                             </tr>
                         </thead>
                         <tbody class="w-[2000px]">
@@ -102,29 +89,7 @@
                                 </td>
                                 <td class="px-6 py-4 border-l border-r border-slate-200">
                                     {{ $item->status }}
-                                </td>
-                                <td class="px-6 py-4 flex gap-2 items-center justify-center">
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
-                                            <path fill="currentColor" d="M12 9a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5a5 5 0 0 1 5-5a5 5 0 0 1 5 5a5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/>
-                                        </svg>
-                                    </a>
-                                    <a href="{{ route('editDataPengusulan', $item->id) }}"
-                                       class="self-center font-medium text-[14px] hover:text-blue-600 text-slate-50 hover:bg-slate-200 bg-blue-400 py-2 px-2 dark:text-blue-500 text-center rounded-md">
-                                        Edit
-                                    </a>
-                                    <form class="flex items-center gap-1"
-                                          action="{{ route('pengusulan.destroy', $item->id) }}"
-                                          method="POST"
-                                          onsubmit="return confirm('Anda Yakin Ingin Menghapusnya?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                                class="font-medium text-[14px] hover:text-red-500 text-slate-50 hover:bg-slate-200 bg-red-500 py-2 px-2 dark:text-red-500 text-center rounded-md">
-                                            Hapus
-                                        </button>
-                                    </form>
-                                </td>
+                                </td>                            
 
                             </tr>
                             @endforeach

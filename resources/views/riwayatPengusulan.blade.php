@@ -1,11 +1,12 @@
 <x-app-layout>
-    <div class="w-full flex justify-between items-center mt-8 pl-2 md:pl-11 lg:pl-11 xl:pl-11 pr-2 md:pr-24 lg:pr-24 xl:pr-24">
+    <div class="w-full flex justify-between mt-8 pl-2 md:pl-11 lg:pl-11 xl:pl-11 pr-11 ">
         <div class="">
             <p class="text-xl font-medium w-fit border-b border-slate-950">Riwayat Pengusulan</p>
         </div>
 
-        <div class="flex gap-8 md:flex lg:flex xl:flex items-end md:items-center lg:items-center xl:items-center md:gap-8 lg:gap-8 xl:gap-8">
-            <form action="{{ route('pengusulan.index') }}" method="GET" class="flex items-center ">
+        <div id="pencarian&tambah" class="flex gap-8 flex-col items-end md:gap-8 lg:gap-8 xl:gap-8">
+
+            <form id="pencarian" action="{{ route('pengusulan.index') }}" method="GET" class="flex items-center ">
                     <input type="text" id="search" name="search" placeholder="Cari riwayat pengusulan"
                         class="p-2 border border-blue-400 rounded-l-[50px] focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-[14px] placeholder:text-slate-400">
                 <button type="submit" class="p-2 w-full h-full bg-blue-400 text-slate-50 font-medium rounded-r-md hover:bg-blue-500 transition text-[14px]">
@@ -13,11 +14,9 @@
                 </button>
             </form>
 
-
-
-            <a href="{{ route('pengusulan.create') }}" class="addUsulan flex items-center justify-around gap-1 h-[40px] w-[190px] pl-2 rounded-2xl bg-blue-400 hover:bg-blue-500 hover:text-blue-400" >
-                <p class="text-slate-50 text-sm">Tambah Usulan</p>
-                <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24"><path fill="white" d="M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2"/></svg>
+            <a id="tambah usulan" href="{{ route('pengusulan.create') }}" class="addUsulan flex items-center justify-around gap-1 px-3 py-2 rounded-full bg-blue-400 hover:bg-blue-500 hover:text-blue-400" >
+                <p class="text-slate-50 font-medium text-sm">Tambah Usulan</p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="white" d="M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2"/></svg>
             </a>
         </div>
     </div>
@@ -38,11 +37,11 @@
 
 
     @if ($pengusulan->isEmpty())
-        <div class="text-center h-[100px] my-[160px]">
+        <div class="text-center h-[100px] my-[100px]">
             <h1 class="text-lg font-medium text-gray-600">Tidak ada riwayat pengusulan</h1>
         </div>
     @else
-        <div class="relative mt-[80px] mb-[180px] rounded-lg max-w-[95%] h-[300px] scrollbar-pengusulan overflow-y-auto overflow-x-auto m-auto">
+        <div class="relative mt-[20px] mb-[180px] rounded-lg max-w-[95%] h-[300px] scrollbar-pengusulan overflow-y-auto overflow-x-auto m-auto">
             <table class="bg-white rounded-lg shadow-md m-auto w-full overflow-scroll">
                 <thead class="bg-blue-400 text-white rounded-lg w-full">
                     <tr class="rounded-lg w-full">
@@ -72,7 +71,7 @@
                             <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->date }}</td>
                             <td class="px-4 py-2 border-l border-r border-slate-200">
                                 @if($item->bookImage)
-                                    <img src="{{ asset('storage/'.$item->bookImage) }}" alt="Gambar Buku" class="w-[100px] h-[100px] object-cover rounded">
+                                    <img src="{{ asset('storage/'.$item->bookImage) }}" alt="Gambar Buku" class="w-[100px] h-[100px] object-cover rounded-[4px]">
                                 @else
                                     Tidak ada gambar
                                 @endif

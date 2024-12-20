@@ -95,13 +95,13 @@ class pengusulanController extends Controller
     return redirect()->route('pengusulan.index')->with('success', 'Usulan buku berhasil diajukan!');
     }
 
-    // public function show(string $id)
-    // {
-    //     $pengusulan = Pengusulan::all();
-    //     // Kirim data usulan ke tampilan riwayatPengusulan
-    //     return view('riwayatPengusulan', compact('pengusulan')); //
-    //     // compact('pengusulan')
-    // }
+    public function show($id)
+    {
+        $pengusulan = Pengusulan::findOrFail($id);
+        // Kirim data usulan ke tampilan riwayatPengusulan
+        return view('admin.detailDataPengusulan', compact('pengusulan')); //
+        // compact('pengusulan')
+    }
 
     //pengusul untuk berpindah ke halaman editPengusulan
     public function edit($id){

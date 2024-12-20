@@ -8,6 +8,16 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/alpinejs" defer></script>
+    <style>
+        .truncate-3-lines {
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Membatasi teks hingga 3 baris */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        }
+    </style>
 </head>
 <body class="font-sans antialiased dark:bg-gray-900 h-full">
     <div class="w-full h-full flex flex-col">

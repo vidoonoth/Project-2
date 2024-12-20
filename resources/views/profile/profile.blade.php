@@ -63,44 +63,47 @@
                         Hapus Akun
                     </button>
 
-                    <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
+                    <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" x-data="{ isModalOpen: {{ $errors->userDeletion->isNotEmpty() ? 'true' : 'false' }} }" focusable>
                         <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
                             @csrf
                             @method('delete')
-
+                    
                             <h2 class="text-lg font-medium text-slate-950">
                                 {{ __('Apakah kamu yakin ingin menghapus akun anda?') }}
                             </h2>
-
+                    
                             <p class="mt-1 text-sm text-slate-950 dark:text-gray-400">
                                 {{ __('Jika kamu menghapus akun, semua datanya akan hilang semua') }}
                             </p>
-
+                    
                             <div class="mt-6">
                                 <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
-
                                 <x-text-input
                                     id="password"
                                     name="password"
                                     type="password"
-                                    class="mt-1 block w-3/4"
+                                    class="mt-1 block text-black w-3/4 placeholder:text-black"
                                     placeholder="{{ __('Password') }}"
                                 />
-
                                 <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
                             </div>
-
+                    
                             <div id="button" class="mt-6 flex gap-2">
-                                
-                                <button class="rounded-[50px] text-blue-400 hover:bg-blue-500 hover:text-slate-100 px-4 py-2 font-semibold" x-on:click="$dispatch('close')">
+                                <!-- Tombol Batal -->
+                                <button type="button" 
+                                    class="rounded-[50px] text-blue-400 hover:bg-blue-500 hover:text-slate-100 px-4 py-2 font-semibold"
+                                    x-on:click="$dispatch('close'); isModalOpen = false; $nextTick(() => { document.querySelector('#password').value = '' })">
                                     Batal
                                 </button>
-                                <button class="rounded-[50px] text-slate-50 bg-red-600 hover:bg-red-700 hover:text-slate-100 px-4 py-2 font-semibold" x-on:click="$dispatch('close')">
+                                <!-- Tombol Hapus -->
+                                <button type="submit" 
+                                    class="rounded-[50px] text-slate-50 bg-red-600 hover:bg-red-700 hover:text-slate-100 px-4 py-2 font-semibold">
                                     Hapus Akun
-                                </button>                                
+                                </button>
                             </div>
                         </form>
                     </x-modal>
+                    
                 </div>
             </div>
             

@@ -14,15 +14,20 @@
     <div id="content" class="flex h-full min-h-full max-h-full">
         @include('layouts.sidebarAdmin')
         <div class="px-[40px] w-[84%]">
-                <div class="flex justify-between items-center mt-8 ">
+                <div class="flex justify-between mt-8 mb-3 ">
                     <p class="text-xl font-semibold">Data Pengusulan</p>
-                    <form action="{{ route('dataPengusulan') }}" method="GET" class="flex items-center ">
-                        <input type="text" id="search" name="search" placeholder="Cari Data Usulan"
-                            class="p-2 border border-blue-600 rounded-l-[50px] focus:outline-none focus:ring-2 focus:ring-blue-600 placeholder:text-[14px] placeholder:text-slate-400">
-                        <button type="submit" class="p-2 w-full h-full bg-blue-600 text-slate-50 font-medium rounded-r-md hover:bg-blue-500 transition text-[14px]">
-                            <svg class="" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48"><g fill="none" stroke="white" stroke-linejoin="round" stroke-width="4"><path d="M21 38c9.389 0 17-7.611 17-17S30.389 4 21 4S4 11.611 4 21s7.611 17 17 17Z"/><path stroke-linecap="round" d="M26.657 14.343A7.98 7.98 0 0 0 21 12a7.98 7.98 0 0 0-5.657 2.343m17.879 18.879l8.485 8.485"/></g></svg>
-                        </button>
-                    </form>
+                    <div class="flex flex-col gap-2 items-end">
+                        <form action="{{ route('dataPengusulan') }}" method="GET" class="flex items-center ">
+                            <input type="text" id="search" name="search" placeholder="Cari Data Usulan"
+                                class="p-2 border border-blue-600 rounded-l-[50px] focus:outline-none focus:ring-2 focus:ring-blue-600 placeholder:text-[14px] placeholder:text-slate-400">
+                            <button type="submit" class="p-2 w-full h-full bg-blue-600 hover:bg-blue-700 text-slate-50 font-medium rounded-r-md transition text-[14px]">
+                                <svg class="" xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 48 48"><g fill="none" stroke="white" stroke-linejoin="round" stroke-width="4"><path d="M21 38c9.389 0 17-7.611 17-17S30.389 4 21 4S4 11.611 4 21s7.611 17 17 17Z"/><path stroke-linecap="round" d="M26.657 14.343A7.98 7.98 0 0 0 21 12a7.98 7.98 0 0 0-5.657 2.343m17.879 18.879l8.485 8.485"/></g></svg>
+                            </button>
+                        </form>
+                        <a href="{{route('cetakPengusulan')}}" class="font-medium px-4 py-3 bg-blue-600 hover:bg-blue-700 text-slate-50 rounded-full text-[14px] dark:text-blue-500">
+                            <p>Cetak data pengusulan</p>
+                        </a>
+                    </div>
                 </div>
 
                 @if ($pengusulan->isEmpty())
@@ -81,7 +86,7 @@
                                 </td>
                                 <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     @if($item->bookImage)
-                                        <img src="{{ asset('storage/' . $item->bookImage) }}" alt="gambar buku">
+                                        <img src="{{ asset('storage/' . $item->bookImage) }}" class="object-cover w-[60px] h-[60px]" alt="gambar buku">
                                     @else
                                         <span class="text-gray-500">Tidak ada gambar</span>
                                     @endif
@@ -113,17 +118,17 @@
                                     </p>                                    
                                 </td>
                                 
-                                <td class="px-6 py-4 flex gap-2 items-center justify-center">
-                                    <a href="{{route('cetakPengusulan')}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                <td class="px-6 py-4 flex gap-2 items-center justify-center">  
+                                    <a href="{{ route('pengusulan.show', $item->id) }}" class="bg-blue-600 hover:bg-slate-200 font-medium text-slate-50 hover:text-blue-600 py-2 px-2 rounded-md dark:text-blue-500 hover:underline">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
                                             <path fill="currentColor" d="M12 9a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5a5 5 0 0 1 5-5a5 5 0 0 1 5 5a5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/>
                                         </svg>
-                                    </a>
+                                    </a>                                  
                                     <a href="{{ route('editDataPengusulan', $item->id) }}"
                                        class="self-center font-medium text-[14px] hover:text-blue-600 text-slate-50 hover:bg-slate-200 bg-blue-400 py-2 px-2 dark:text-blue-500 text-center rounded-md">
                                         Edit
                                     </a>
-                                    <form class="flex items-center gap-1"
+                                    <form class="flex items-center gap-1 mt-3"
                                           action="{{ route('hapusDataPengusulan', $item->id) }}"
                                           method="POST"
                                           onsubmit="return confirm('Anda Yakin Ingin Menghapusnya?');">

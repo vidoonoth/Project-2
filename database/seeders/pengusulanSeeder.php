@@ -25,7 +25,7 @@ class pengusulanSeeder extends Seeder
                 'date' => '2024-01-03', 
                 'bookImage' => 'images/book3.jpg', 
                 'status' => 'tersedia', 
-                'user_id' => 1,
+                'user_id' => null,
             ]
         ]);
     }
