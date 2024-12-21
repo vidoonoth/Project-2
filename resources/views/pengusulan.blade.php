@@ -29,52 +29,52 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
                     <div class="mb-4">
                         <x-input-label class="" for="bookTitle" :value="__('Judul Buku')" />
-                        <x-text-input id="bookTitle" class="block mt-1 w-full" type="text" name="bookTitle"
+                        <x-text-input id="bookTitle" class="block mt-1 w-full placeholder:text-slate-500" type="text" name="bookTitle"
                             :value="old('bookTitle')" required autofocus autocomplete="bookTitle" placeholder="Judul Buku" />
                         <x-input-error :messages="$errors->get('bookTitle')" class="mt-2" />
                     </div>
                     <div class="mb-4">
                         <x-input-label class="genre" for="genre" :value="__('Kategori')" />
-                        <x-select id="genre" name="genre" class="block mt-1 w-full" :options="['Self Improvement' => 'Self Improvement', 'Fiksi Sejarah' => 'Fiksi Sejarah', 'Puisi' => 'Puisi', 'Sejarah' => 'Sejarah']" required />
+                        <x-select id="genre" name="genre" class="block mt-1 w-full placeholder:text-slate-500" :options="['Self Improvement' => 'Self Improvement', 'Fiksi Sejarah' => 'Fiksi Sejarah', 'Puisi' => 'Puisi', 'Sejarah' => 'Sejarah']" required />
                         <x-input-error :messages="$errors->get('genre')" class="mt-2" />
                     </div>
                     <div class="mb-4">
                         <x-input-label class="" for="isbn" :value="__('ISBN')" />
-                        <x-text-input id="isbn" class="block mt-1 w-full" type="number" name="isbn"
-                            :value="old('isbn')" autofocus autocomplete="isbn" placeholder="Isbn"/>
+                        <x-text-input id="isbn" class="block mt-1 w-full placeholder:text-slate-500" type="number" name="isbn"
+                            :value="old('isbn')" autofocus autocomplete="isbn" placeholder="Isbn (tidak wajib diisi)"/>
                         <x-input-error :messages="$errors->get('isbn')" class="mt-2" />
                     </div>
                     <div class="mb-4">
                         <x-input-label class="" for="author" :value="__('Pengarang')" />
-                        <x-text-input id="author" class="block mt-1 w-full" type="text" name="author"
+                        <x-text-input id="author" class="block mt-1 w-full placeholder:text-slate-500" type="text" name="author"
                             :value="old('author')" required autofocus autocomplete="author" placeholder="Pengarang" />
                         <x-input-error :messages="$errors->get('author')" class="mt-2" />
                     </div>
 
                     <div class="mb-4">
                         <x-input-label class="" for="publicationYear" :value="__('Tahun Terbit')" />
-                        <x-text-input id="publicationYear" class="block mt-1 w-full" type="number" name="publicationYear"
+                        <x-text-input id="publicationYear" class="block mt-1 w-full placeholder:text-slate-500" type="number" name="publicationYear"
                             :value="old('publicationYear')" required autofocus autocomplete="publicationYear" placeholder="Tahun Terbit"/>
                         <x-input-error :messages="$errors->get('publicationYear')" class="mt-2" />
                     </div>
 
                     <div class="mb-4">
                         <x-input-label class="" for="publisher" :value="__('Penerbit')" />
-                        <x-text-input id="publisher" class="block mt-1 w-full text-sm" type="text" name="publisher"
+                        <x-text-input id="publisher" class="block mt-1 w-full placeholder:text-slate-500 text-sm" type="text" name="publisher"
                             :value="old('publisher')" required autofocus autocomplete="publisher" placeholder="Penerbit"/>
                         <x-input-error :messages="$errors->get('publisher')" class="mt-2" />
                     </div>
 
                    <div class="mb-4">
                         <x-input-label class="" for="date" :value="__('Tanggal')" />
-                        <x-text-input id="date" class="block mt-1 w-full text-sm" type="date" name="date"
+                        <x-text-input id="date" class="block mt-1 w-full placeholder:text-slate-500 text-sm" type="date" name="date"
                             :value="old('date')" required autofocus autocomplete="date" placeholder="date"/>
                         <x-input-error :messages="$errors->get('date')" class="mt-2" />
                     </div>
 
                     <div class="mb-4">
                         <x-input-label class="" for="bookImage" :value="__('Gambar Buku')" />
-                        <x-file-input id="bookImage" class="block mt-1 w-full" type="file" name="bookImage" accept="image/*"
+                        <x-file-input id="bookImage" class="block mt-1 w-full placeholder:text-slate-500" type="file" name="bookImage" accept="image/*"
                             :value="old('bookImage')" autofocus autocomplete="bookImage" placeholder="bookImage"/>
                         <x-input-error :messages="$errors->get('bookImage')" class="mt-2" />
                     </div>

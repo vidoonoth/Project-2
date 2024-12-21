@@ -79,28 +79,22 @@ class NotifikasiController extends Controller
         return view('notifikasiUser', compact('notifikasi'));
     }
 
-    // Menghapus notifikasi    
-    // public function hapusNotif(Notifikasi $notifikasi, $id)
-    // {   
-    //     $notifikasi->delete();
-
-    //     return redirect()->route('notifUser')->with('success', 'Information deleted successfully.');
-    // }
-
-    public function hapusNotif(Notifikasi $notifikasi, $id)
+    public function hapusNotif($id)
     {
-    // Temukan notifikasi berdasarkan UUID
-    $notifikasi = Auth::notifications()->Notifications->where('id', $id)->first();
-
-    if ($notifikasi) {
+        $user = Auth::user();  // Mendapatkan user yang sedang login
+    
+        // Temukan notifikasi berdasarkan ID yang diberikan
+        $notifikasi = $user->notifications->findOrFail($id);
+    
         // Hapus notifikasi
         $notifikasi->delete();
-
-        return redirect()->route('notifUser')->with('success', 'Notifikasi berhasil dihapus.');
+    
+        return redirect()->route('notifikasiUser')->with('success', 'Notifikasi berhasil dihapus.');
     }
+    
+    
 
-    return redirect()->route('notifUser')->with('error', 'Notifikasi tidak ditemukan.');
-    }
+
 
 }
 

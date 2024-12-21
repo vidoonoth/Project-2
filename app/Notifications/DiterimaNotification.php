@@ -14,14 +14,16 @@ class DiterimaNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public $isbn;
+    // public $isbn;
     private $pengusulan;
-    public function __construct($pengusulan)
+    private $user;
+    public function __construct($pengusulan, $user)
     {
         //
         $this->pengusulan = $pengusulan;
-        $this->pengusulan = $pengusulan->isbn;
-        $this->pengusulan = $pengusulan->user;
+        $this->user = $user;
+        // $this->pengusulan = $pengusulan->isbn;
+        // $this->pengusulan = $pengusulan->user;
     }
 
     /**
@@ -38,9 +40,11 @@ class DiterimaNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [            
-            'name' => is_object($this->pengusulan) ? $this->pengusulan->name : 'Nama tidak tersedia',
-            'username' => is_object($this->pengusulan) ? $this->pengusulan->username : 'Isbn tidak tersedia',
-            'isbn' =>$this->pengusulan->isbn ?? 'Isbn tidak tersedia',
+            'name' => is_object($this->user) ? $this->user->name : 'Nama tidak tersedia',
+            'username' => is_object($this->user) ? $this->user->username : 'username tidak tersedia',
+            'bookTitle' => is_object($this->pengusulan) ? $this->pengusulan->bookTitle : 'Isbn tidak tersedia',
+            'isbn' => is_object($this->pengusulan) ? $this->pengusulan->isbn : 'Isbn tidak tersedia',
+            // 'isbn' =>$this->pengusulan->isbn ?? 'Isbn tidak tersedia',
             'status' => 'diproses',
             'message' => 'Usulan sedang kami proses, mohon untuk menunggu. Terimakasih sudah melakukan pengusulan',
         ];

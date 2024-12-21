@@ -70,7 +70,7 @@
                     </div>
                     @if($pengusulan->bookImage)
                             <div class="mt-2 w-full">
-                                <img src="{{ asset('storage/' . $pengusulan->bookImage) }}" alt="Gambar Buku" class="object-cover rounded">
+                                <img src="{{ asset('storage/' . $pengusulan->bookImage) }}" alt="Gambar Buku" class="object-fill rounded w-[300px] h-[400px]">
                             </div>
                     @endif
 

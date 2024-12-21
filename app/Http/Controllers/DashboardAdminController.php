@@ -17,7 +17,7 @@ class DashboardAdminController extends Controller
     {
         $pengusulanCount = pengusulan::count();
         $booksCount = Book::count();
-        $userCount = User::count();
+        $userCount = User::where('usertype', 'user')->count();
         // $dshAdmin = DashboardAdminController::all();
         return view('admin.dashboard', compact('pengusulanCount', 'booksCount', 'userCount')); //
         // , compact('informasi'));

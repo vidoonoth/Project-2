@@ -80,6 +80,9 @@
         .scrollbar-pengusulan::-webkit-scrollbar-thumb:hover {
             background: #4594f4;
         }
+        #notifikasi:hover path {
+            fill: black; /* Ubah warna isi elemen path */
+        }
     </style>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

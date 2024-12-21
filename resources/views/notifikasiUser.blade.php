@@ -103,6 +103,10 @@
                         <p>{{ $notif->data['name'] ?? 'Tidak ada nama' }}</p>
                     </li>
                     <li class="flex gap-3">
+                        <p class="font-semibold">Judul Buku : </p>
+                        <p>{{ $notif->data['bookTitle'] ?? 'Tidak ada judul buku' }}</p>
+                    </li>
+                    <li class="flex gap-3">
                         <p class="font-semibold">Isbn : </p>
                         <p>{{ $notif->data['isbn'] ?? 'Tidak ada isbn' }}</p>
                     </li>
@@ -115,15 +119,15 @@
                         <p>{{ $notif->data['message'] ?? 'Tidak ada pesan' }}</p>
                     </li>
                 </ul>                
-                <div class="flex gap-3">
-                    <form action="{{ route('hapusNotifikasi', $notif->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus notifikasi ini?');">
+                {{-- <div class="flex gap-3">
+                    <form action="{{ route('hapusNotif', $notif->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus notifikasi ini?');">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-medium py-2 px-2 rounded-lg w-[200px]">
                             Hapus Pesan
                         </button>
                     </form>
-                </div>
+                </div> --}}
 
             </div>
         @endforeach

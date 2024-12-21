@@ -10,7 +10,7 @@
 <body>
     <div class="container mx-auto mt-4">
         <div class="bg-white rounded-lg p-6">
-            <h1 class="text-2xl font-bold text-gray-800 mb-4 border-b w-fit">Detail Data Pengusulan</h1>
+            <h1 class="text-2xl font-bold text-gray-800 mb-4 border-b w-fit">Detail Usulan</h1>
             <div class="flex items-center mt-6">                
                 <!-- Gambar Buku -->
                 <div class="flex justify-center w-[400px] h-[400px]">
@@ -23,7 +23,7 @@
                 </div>
                 <!-- Informasi Buku -->
                 <div class="flex flex-col gap-2">
-                    <p class="text-sm text-gray-600"><span class="font-semibold text-[16px]">Username Pengusul:</span> {{ $pengusulan->user->username }}</p>
+                    
                     <p class="text-sm text-gray-600"><span class="font-semibold text-[16px]">Judul Buku:</span> {{ $pengusulan->bookTitle }}</p>
                     <p class="text-sm text-gray-600"><span class="font-semibold text-[16px]">ISBN:</span> {{ $pengusulan->isbn }}</p>
                     <p class="text-sm text-gray-600"><span class="font-semibold text-[16px]">Kategori:</span> {{ $pengusulan->genre }}</p>

@@ -9,9 +9,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.jsdelivr.net/npm/alpinejs" defer></script>
     <style>
-        .truncate-3-lines {
+        .truncate-4-lines {
         display: -webkit-box;
-        -webkit-line-clamp: 3; /* Membatasi teks hingga 3 baris */
+        -webkit-line-clamp: 4; /* Membatasi teks hingga 3 baris */
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;

@@ -3,9 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Notifications\Notifiable;
+// use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -55,6 +57,10 @@ class User extends Authenticatable
     public function pengusulans()
     {
         return $this->hasMany(Pengusulan::class);
+    }
+    public function notifications()
+    {
+        return $this->morphMany(DatabaseNotification::class, 'notifiable');
     }
 
 }

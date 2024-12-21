@@ -25,7 +25,7 @@
                     <!-- Email Address -->
                     <div class="mt-[70px] flex flex-col align-content-center items-start justify-center">
                         <x-input-label for="email" :value="__('Email')" />
-                        <x-text-input id="email" class="block mt-1 w-full W-96" placeholder="email" type="email"
+                        <x-text-input id="email" class="block mt-1 w-full placeholder:text-slate-400 W-96" placeholder="email" type="email"
                             name="email" :value="old('email')" required autofocus autocomplete="username" />
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
@@ -33,13 +33,13 @@
                     <!-- Password -->
                     <div class="mt-4 flex flex-col align-content-center items-start justify-center">
                         <x-input-label for="password" :value="__('Password')" />
-                        <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
+                        <x-text-input id="password" class="block mt-1 w-full placeholder:text-slate-400" type="password" name="password"
                             placeholder="password" required autocomplete="current-password" />
                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     </div>
 
                     <!-- Remember Me -->
-                    <div class="flex mt-4 text-center justify-between">
+                    {{-- <div class="flex mt-4 text-center justify-between">
                         <label for="remember_me" class="inline-flex items-center">
                             <input id="remember_me" type="checkbox"
                                 class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
@@ -52,7 +52,7 @@
                                 {{ __('Lupa kata sandi?') }}
                             </a>
                         @endif
-                    </div>
+                    </div> --}}
 
                     <div class="mt-11 flex flex-col justify-items-center place-items-center align-content-center justify-center">
                         <x-primary-button class="text-center items-center justify-center w-full">

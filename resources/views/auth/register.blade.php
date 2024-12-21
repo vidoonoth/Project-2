@@ -16,7 +16,7 @@
                 <!-- username -->
                 <div>
                     <x-input-label for="username" :value="__('Username')" />
-                    <x-text-input id="username" class="block mt-1 w-[250px]" type="text" name="username" :value="old('username')" placeholder="Username"
+                    <x-text-input id="username" class="block mt-1 w-[250px] placeholder:text-slate-500" type="text" name="username" :value="old('username')" placeholder="Username"
                         required autofocus autocomplete="username" />
                     <x-input-error :messages="$errors->get('username')" class="mb-2" />
                 </div>
@@ -24,7 +24,7 @@
                 <!-- Nama lengkap -->
                 <div>
                     <x-input-label for="name" :value="__('Nama Lengkap')" />
-                    <x-text-input id="name" class="block mt-1 w-[250px]" type="text" name="name" placeholder="Nama Lengkap"
+                    <x-text-input id="name" class="block mt-1 w-[250px] placeholder:text-slate-500" type="text" name="name" placeholder="Nama Lengkap"
                         :value="old('name')" required autofocus autocomplete="name" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                 </div>
@@ -35,7 +35,7 @@
                 <!-- Email Address -->
                 <div class="">
                     <x-input-label for="email" :value="__('Email')" />
-                    <x-text-input id="email" class="block mt-1 w-[250px]" type="email" name="email" placeholder="Email"
+                    <x-text-input id="email" class="block mt-1 w-[250px] placeholder:text-slate-500" type="email" name="email" placeholder="Email"
                         :value="old('email')" required autocomplete="username" />
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                 </div>
@@ -43,7 +43,7 @@
                 <!-- no telepon -->
                 <div class="">
                     <x-input-label for="numberphone" :value="__('Nomor Telepon')" />
-                    <x-text-input id="numberphone" class="block mt-1 w-[250px]" type="number" name="numberphone" placeholder="08XXXXXXX"
+                    <x-text-input id="numberphone" class="block mt-1 w-[250px] placeholder:text-slate-500" type="number" name="numberphone" placeholder="08XXX (min: 10 - max: 13)"
                         :value="old('numberphone')" required autocomplete="username" />
                     <x-input-error :messages="$errors->get('numberphone')" class="mt-2" />
                 </div>
@@ -54,14 +54,14 @@
                 {{-- nik --}}
                 <div class="">
                     <x-input-label for="nik" :value="__('NIK')" />
-                    <x-text-input id="nik" class="block mt-1 w-[250px]" type="number" name="nik" placeholder="NIK"
+                    <x-text-input id="nik" class="block mt-1 w-[250px] placeholder:text-slate-500" type="number" name="nik" placeholder="NIK (16 digit)"
                         :value="old('nik')" required autocomplete="nik" />
                     <x-input-error :messages="$errors->get('nik')" class="mt-2" />
                 </div>
                 <!-- gender -->
                 <div class="">
                     <x-input-label for="gender" :value="__('Jenis Kelamin')" />
-                    <x-select id="gender" name="gender" class="block mt-1 w-[250px]" :options="['laki-laki' => 'Laki-laki', 'perempuan' => 'Perempuan']" required />
+                    <x-select id="gender" name="gender" class="block mt-1 w-[250px] placeholder:text-slate-500" :options="['laki-laki' => 'Laki-laki', 'perempuan' => 'Perempuan']" required />
                     <x-input-error :messages="$errors->get('gender')" class="mt-2" />
                 </div>
             </div>
@@ -71,7 +71,7 @@
                 {{-- password --}}
                 <div class="">
                     <x-input-label for="password" :value="__('Password')" />
-                    <x-text-input id="password" class="block mt-1 w-[250px]" type="password" name="password" required placeholder="Password"
+                    <x-text-input id="password" class="block mt-1 w-[250px] placeholder:text-slate-500" type="password" name="password" required placeholder="Password"
                         autocomplete="new-password" />
 
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
@@ -81,7 +81,7 @@
                 <div class="">
                     <x-input-label for="password_confirmation" :value="__('Konfirmasi Password')" />
 
-                    <x-text-input id="password_confirmation" class="block mt-1 w-[250px]" type="password" placeholder="Konfirmasi Password"
+                    <x-text-input id="password_confirmation" class="block mt-1 w-[250px] placeholder:text-slate-500" type="password" placeholder="Konfirmasi Password"
                         name="password_confirmation" required autocomplete="new-password" />
 
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />

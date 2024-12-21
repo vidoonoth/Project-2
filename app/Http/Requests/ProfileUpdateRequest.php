@@ -28,8 +28,8 @@ class ProfileUpdateRequest extends FormRequest
             'max:255',
             Rule::unique(User::class)->ignore($this->user()->id),
         ], // Validasi email unik
-        'numberphone' => ['required', 'string', 'min:12', 'max:12'], // Validasi nomor telepon tepat 12 karakter
-        'nik' => ['required', 'string', 'min:12', 'max:15'], // Validasi NIK antara 12-15 karakter
+        'numberphone' => ['required', 'string', 'min:10', 'max:13'], // Validasi nomor telepon tepat 12 karakter
+        'nik' => ['required', 'string', 'min:16', 'max:16'], // Validasi NIK antara 12-15 karakter
         'gender' => ['required', 'string', 'max:255'], // Validasi gender sebagai string
         'password' => ['nullable', 'confirmed', Password::defaults()], // Validasi password opsional, harus sesuai konfirmasi
         'profile_picture' => [

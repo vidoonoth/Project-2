@@ -33,7 +33,7 @@
                 </div>
                 <div id="nik" class="flex gap-7 justify-between">
                     <p class="text-[16px] font-semibold">NIK :</p>
-                    <p>{{ $user->nik }}</p>
+                    <p>*****</p>
                 </div>
                 <div id="gender" class="flex gap-7 justify-between">
                     <p class="text-[16px] font-semibold">Jenis Kelamin :</p>

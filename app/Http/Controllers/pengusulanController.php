@@ -88,13 +88,20 @@ class pengusulanController extends Controller
         'user_id' => Auth::id(),
     ]);
     $user = Auth::user();
-    Notification::send($user, new DiterimaNotification($pengusulan));
+    Notification::send($user, new DiterimaNotification($pengusulan, $user));
     
 
     // Redirect setelah berhasil menyimpan
     return redirect()->route('pengusulan.index')->with('success', 'Usulan buku berhasil diajukan!');
     }
 
+    public function detailUsulan($id)
+    {
+        $pengusulan = Pengusulan::findOrFail($id);
+        // Kirim data usulan ke tampilan riwayatPengusulan
+        return view('detailUsulan', compact('pengusulan')); //
+        // compact('pengusulan')
+    }
     public function show($id)
     {
         $pengusulan = Pengusulan::findOrFail($id);

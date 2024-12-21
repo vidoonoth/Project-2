@@ -40,7 +40,7 @@
             @else
             <div class="cards my-[10px] flex gap-[30px] mt-8 justify-center">
             @foreach ($books as $book)
-                <x-card
+                {{-- <x-card
                     bookImage="{{ $book->bookImage }}"
                     bookTitle="{{ $book->bookTitle }}"
                     isbn="{{ $book->isbn }}"
@@ -50,7 +50,29 @@
                     publisher="{{ $book->publisher }}"
                     description="{{ $book->description }}"
                     synopsis="{{ $book->synopsis }}"
-                />
+                /> --}}
+                
+            <div class="card flex flex-col bg-slate-100 shadow shadow-slate-300 w-[280px] h-fit {{-- h-[638px] --}} rounded-[20px] items-center py-5 px-5 text-left">
+                    <img class="card-img-top w-[170px] rounded-[10px]" src="{{ asset('storage/' . $book->bookImage) }}" alt="Book Image">
+            
+                <div class="card-body">
+                    <div class=" text-center flex flex-col items-center gap-2 my-5">
+                        <p class="card-title font-semibold">{{ $book->bookTitle }}</p>
+                        <p class="card-text w-fit bg-slate-300 py-1 px-2 rounded-md">{{ $book->genre }}</p>
+                    </div>
+                    <details class="cursor-pointer">
+                        <summary class="cursor-pointer">Detail</summary>
+                        <p class="card-text"><span class="font-semibold">ISBN:</span> {{ $book->isbn }}</p>
+                        <p class="card-text"><span class="font-semibold">Penulis: </span> {{ $book->author }}</p>
+                        <p class="card-text"><span class="font-semibold">Tahun Terbit: </span> {{ $book->yearPublication }}</p>
+                        <p class="card-text"><span class="font-semibold">Penerbit: </span>{{ $book->publisher }}</p>
+                        <p class="card-text"><span class="font-semibold">Halaman:</span> {{ $book->description }} halaman</p>
+                        <p class="card-text"><span class="font-semibold">Sinopsis:</span> {{ $book->synopsis }}</p>
+            
+                    </details>
+                </div>
+            </div>
+
             @endforeach
             </div>
             @endif

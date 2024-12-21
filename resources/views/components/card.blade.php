@@ -14,8 +14,7 @@
             <p class="card-text"><span class="font-semibold">Penerbit: </span>{{ $publisher }}</p>
             <p class="card-text"><span class="font-semibold">Deskripsi:</span> {{ $description }}</p>
             <p class="card-text"><span class="font-semibold">Sinopsis:</span> {{ $synopsis }}</p>
-        </details>
 
-        {{-- <a href="#" class="btn btn-primary">Baca Selengkapnya</a> --}}
+        </details>
     </div>
 </div>

@@ -14,17 +14,22 @@
             <div class="flex gap-6 mt-6">
                 <!-- Gambar Buku -->
                 <div class="flex justify-center w-[400px] h-[400px]">
-                    <img src="{{ asset('storage/' . $book->bookImage) }}" alt="{{ $book->judulBuku }}" class="rounded-lg shadow-md max-w-sm">
+                    @if($book->bookImage)
+                        <img src="{{ asset('storage/' . $book->bookImage) }}" alt="{{ $book->judulBuku }}" class="rounded-lg shadow-md max-w-sm">
+                    @else
+                        <span class="text-gray-50 flex items-center font-semibold text-center">Tidak ada gambar</span>
+                    @endif    
                 </div>
+                
                 <!-- Informasi Buku -->
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-2 justify-center">
                     <h2 class="text-xl font-semibold text-gray-700 mb-2">{{ $book->bookTitle }}</h2>
                     <p class="text-sm text-gray-600"><span class="font-semibold text-[16px]">ISBN:</span> {{ $book->isbn }}</p>
                     <p class="text-sm text-gray-600"><span class="font-semibold text-[16px]">Kategori:</span> {{ $book->genre }}</p>
                     <p class="text-sm text-gray-600"><span class="font-semibold text-[16px]">Pengarang:</span> {{ $book->author }}</p>
                     <p class="text-sm text-gray-600"><span class="font-semibold text-[16px]">Penerbit:</span> {{ $book->publisher }}</p>
                     <p class="text-sm text-gray-600"><span class="font-semibold text-[16px]">Tahun Terbit:</span> {{ $book->publicationYear }}</p>
-                    <p class="text-sm text-gray-600"><span class="font-semibold text-[16px]">Halaman:</span {{ $book->description }}</p>
+                    <p class="text-sm text-gray-600"><span class="font-semibold text-[16px]">Halaman:</span> {{ $book->description }} halaman</p>
                     <p class="text-sm text-gray-600"><span class="font-semibold text-[16px]">Sinopsis:</span> {{ $book->synopsis }}</p>
                     
                     

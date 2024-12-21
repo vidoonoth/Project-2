@@ -73,7 +73,7 @@
                                     Penerbit
                                 </th>
                                 <th scope="col" class="px-6 py-3 border-l border-r border-blue-500">
-                                    Deskripsi
+                                    Halaman
                                 </th>
                                 <th scope="col" class="px-6 py-3 border-l border-r border-blue-500">
                                     Sinopsis
@@ -88,7 +88,12 @@
                             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-slate-100 even:dark:bg-gray-800 border-b border-slate-200 dark:border-gray-700">
                                 <td class="px-4 py-2">{{ $loop->iteration }}</td>
                                 <td class="px-4 py-2 font-medium text-gray-900 dark:text-white border-l border-r border-slate-200">
-                                    <img class="w-[80px] h-[100px] object-cover" src="{{ asset('storage/' . $book->bookImage) }}" alt="gambar buku">
+                                    @if($book->bookImage)
+                                        <img class="w-[80px] h-[100px] object-cover" src="{{ asset('storage/' . $book->bookImage) }}" alt="gambar buku">
+                                    @else
+                                        <span class="text-gray-500">Tidak ada gambar</span>
+                                    @endif
+                                    
                                 </td>
                                 <td class="px-6 py-2 border-l border-r border-slate-200">
                                     {{ $book->isbn }}
@@ -109,30 +114,34 @@
                                     {{ $book->publisher }}
                                 </td>
                                 <td class="px-6 py-2 border-l border-r border-slate-200 ">
-                                    {{ $book->description }}
+                                    {{ $book->description }} halaman
                                 </td>
                                 <td class="px-6 py-2 border-l border-r border-slate-200 truncate-3-lines ">
-                                    {{ $book->synopsis }}
+                                    {{ \Illuminate\Support\Str::words($book->synopsis, 10, '...') }}
                                 </td>
-                                <td class="px-6 py-2 border-l border-r border-slate-200 ">
-                                    <a href="{{ route('books.show', $book->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                
+                                <td class="px-6 py-11 flex gap-2 items-center justify-center">  
+                                    <a href="{{ route('books.show', $book->id) }}" class="bg-blue-600 hover:bg-slate-200 font-medium text-slate-50 hover:text-blue-600 py-2 px-2 rounded-md dark:text-blue-500 hover:underline">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
                                             <path fill="currentColor" d="M12 9a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3m0 8a5 5 0 0 1-5-5a5 5 0 0 1 5-5a5 5 0 0 1 5 5a5 5 0 0 1-5 5m0-12.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5"/>
                                         </svg>
+                                    </a>                                  
+                                    <a href="{{ route('books.edit', $book->id) }}"
+                                       class="self-center font-medium text-[14px] hover:text-blue-600 text-slate-50 hover:bg-slate-200 bg-blue-400 py-2 px-2 dark:text-blue-500 text-center rounded-md">
+                                        Edit
                                     </a>
-                                    <a href="{{ route('books.edit', $book->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    <form action="{{ route('books.destroy', $book->id) }}"
-                                        method="POST"
-                                        onsubmit="return confirm('Anda Yakin Ingin Menghapusnya?');">
-                                      @csrf
-                                      @method('DELETE')
-                                      <button type="submit"
-                                              class="text-red-500 hover:underline">
-                                          Hapus
-                                      </button>
+                                    <form class="flex items-center gap-1 mt-3"
+                                          action="{{ route('books.destroy', $book->id) }}"
+                                          method="POST"
+                                          onsubmit="return confirm('Anda Yakin Ingin Menghapusnya?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                                class="font-medium text-[14px] hover:text-red-500 text-slate-50 hover:bg-slate-200 bg-red-500 py-2 px-2 dark:text-red-500 text-center rounded-md">
+                                            Hapus
+                                        </button>
                                     </form>
                                 </td>
-
                             </tr>
 
                             @endforeach

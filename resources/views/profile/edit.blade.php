@@ -58,7 +58,7 @@
 
             <div id="profileImage" class="mb-4">                    
                 <x-input-label for="profileImage" :value="__('Foto Profil')" />
-                <x-text-input id="profileImage" class="block mt-1 w-[300px]" type="file" name="profileImage" accept="image/*" autofocus placeholder="Judul Buku" />
+                <x-file-input id="profileImage" class="block mt-1 w-[300px]" type="file" name="profileImage" accept="image/*"/>                
                 <x-input-error :messages="$errors->get('profileImage')" class="mt-2" />
             </div>                       
             

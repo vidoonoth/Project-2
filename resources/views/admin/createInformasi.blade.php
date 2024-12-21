@@ -15,15 +15,13 @@
         <form action="{{ route('informasi.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
             @csrf
             <div class="flex flex-col">
-                <label for="title" class="mb-1 text-gray-600 font-medium">Judul</label>
-                <input type="text" id="title" name="title" required
-                    class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <label for="title" class="mb-1 text-gray-600 font-medium placeholder:text-slate-400">Judul</label>
+                <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" placeholder="Judul" />
             </div>
 
             <div class="flex flex-col">
-                <label for="content" class="mb-1 text-gray-600 font-medium">Isi</label>
-                <input type="text" id="content" name="content" required
-                    class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <label for="content" class="mb-1 text-gray-600 font-medium placeholder:text-slate-400">Isi</label>
+                <x-text-input id="content" class="block mt-1 w-full" type="text" name="content" placeholder="Isi" />
             </div>
 
                 <button type="submit" class="px-4 py-2 w-full bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition">Tambah</button>

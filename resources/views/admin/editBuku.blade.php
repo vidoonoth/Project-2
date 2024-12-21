@@ -43,8 +43,8 @@
 
             <div class="flex flex-col">
                 <x-input-label for="author" :value="__('Pengarang')" class="text-slate-950"/>
-                        <x-text-input id="author" class="block mt-1 w-full" type="text" name="author" :value="old('author', $book->author)" required placeholder="Pengarang" />
-                        <x-input-error :messages="$errors->get('author')" class="mt-2" />
+                <x-text-input id="author" class="block mt-1 w-full" type="text" name="author" :value="old('author', $book->author)" required placeholder="Pengarang" />
+                <x-input-error :messages="$errors->get('author')" class="mt-2" />
             </div>
 
             <div class="flex flex-col">
@@ -63,8 +63,8 @@
                 <x-input-error :messages="$errors->get('publisher')" class="mt-2" />
             </div>
             <div class="flex flex-col">
-                <x-input-label for="description" :value="__('Deskripsi')" class="text-slate-950"/>
-                <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" :value="old('description', $book->description)" required placeholder="Deskripisi" />
+                <x-input-label for="description" :value="__('Halaman')" class="text-slate-950"/>
+                <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" :value="old('description', $book->description)" required placeholder="halaman" />
                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
             </div>
             <div class="flex flex-col">

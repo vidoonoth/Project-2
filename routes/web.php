@@ -24,16 +24,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/homePage', [BookController::class, 'koleksiBukuHome'])->name('homePage');                                                                
     Route::resource('pengusulan', pengusulanController::class)->middleware('auth');
+    Route::get('/riwayatpengusulan/{id}', [PengusulanController::class, 'detailUsulan'])->name('detailUsulan');
     // route::get('/pengusulan', [pengusulanController::class, 'index'])->name('riwayatPengusulan');    
+    Route::resource('books', BookController::class);
     Route::get('/dataPengusulan', [pengusulanController::class, 'dataPengusulan'])->name('dataPengusulan');
     Route::get('/dataPengusulan/{id}/edit', [PengusulanController::class, 'editDataPengusulan'])->name('editDataPengusulan');
-    Route::get('/dataPengusulan/show', [PengusulanController::class, 'cetakPengusulan'])->name('cetakPengusulan');
+    Route::get('/dataPengusulan/cetak', [PengusulanController::class, 'cetakPengusulan'])->name('cetakPengusulan');
     Route::put('/dataPengusulan/{id}', [PengusulanController::class, 'updateDataPengusulan'])->name('updateDataPengusulan');
+    
     Route::delete('/dataPengusulan/{id}', [pengusulanController::class, 'hapusData'])->name('hapusDataPengusulan');
 
     Route::resource('notifikasi', NotifikasiController::class);
     Route::get('/notifikasiUser', [NotifikasiController::class, 'notifUser'])->name('notifikasiUser')->middleware('auth');
-    Route::delete('/notifikasi/{id}', [NotifikasiController::class, 'hapusNotif'])->name('hapusNotifikasi');  
+    Route::delete('/notifikasiUser/{id}', [NotifikasiController::class, 'hapusNotif'])->name('hapusNotif');      
+
 
     Route::get('admin/dataKoleksiBuku', function () {
         return view('admin.dataKoleksiBuku');
@@ -82,7 +86,7 @@ Route::get('/visiMisi', [InformasiController::class, 'visiMisi'])
 
 // Route::get('/{id}', [BookController::class, 'show'])->name('lihatBuku');
 
-Route::resource('books', BookController::class);
+
 Route::get('/koleksiBuku', [BookController::class, 'koleksiBuku'])->name('koleksiBuku');
 // Route::get('/homePage', [BookController::class, 'rekomendasiBuku']);
 
