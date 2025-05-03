@@ -35,8 +35,8 @@
                 <x-input-error :messages="$errors->get('numberphone')" class="mt-2" />
             </div>           
             <div id="gender" class="mb-4">                    
-                <x-input-label for="gender" :value="__('Gender')" />
-                <x-text-input id="gender" class="block mt-1 w-[300px]" type="text" name="gender" :value="old('gender', $user->gender)" required autofocus placeholder="Judul Buku" />
+                <x-input-label for="gender" :value="__('Jenis Kelamin')" />                
+                <x-select id="gender" name="gender" class="block mt-1 w-[300px] placeholder:text-slate-500" :value="old('gender', $user->gender)" :options="['laki-laki' => 'Laki-laki', 'perempuan' => 'Perempuan']" required />
                 <x-input-error :messages="$errors->get('gender')" class="mt-2" />
             </div>           
             
@@ -71,7 +71,7 @@
 
             <div class="w-full mt-10 flex ">
                 <x-primary-button class="w-[200px]">
-                    {{ __('Update Pengusulan') }}
+                    {{ __('Update Profil') }}
                 </x-primary-button>
             </div>
         </form>

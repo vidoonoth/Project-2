@@ -58,49 +58,34 @@ class ProfileController extends Controller
     // }
 
     public function update(ProfileUpdateRequest $request)
-    {
-        // $request->user()->fill($request->validated());        
+{
+    $user = $request->user();
 
-        // $user = Auth::user();
+    // Ambil data validasi
+    $validatedData = $request->validated();
 
-        $user = $request->user();
-        $user->fill($request->validated());
+    // Jika gender tidak dikirim, gunakan nilai lama
+    $validatedData['gender'] = $request->input('gender', $user->gender);
 
-        // if ($request->filled('password')) {
-        //     $user->password = bcrypt($request->password);
-        // }
-        // logika foto profil
-        // if ($request->hasFile('profileImage')) {
-        //     // Hapus gambar lama jika ada
-        //     if ($user->profileImage) {
-        //         Storage::disk('public')->delete($user->profileImage);
-        //     }
-        //     // Simpan gambar baru
-        //     $user->profileImage = $request->file('profileImage')->store('book_images', 'public');
-        // }elseif (!$request->hasFile('profileImage') && $user->profileImage) {
-        //     // Jika tidak ada gambar baru dan gambar sebelumnya ada, set gambar ke null
-        //         $user->profileImage = null;
-        // }
+    // Isi data ke model user
+    $user->fill($validatedData);
 
-
-        if ($request->hasFile('profileImage')) {
-            // Hapus gambar lama jika ada
-            if ($user->profileImage) {
-                Storage::disk('public')->delete($user->profileImage);
-            }
-            // Simpan gambar baru
-            $user->profileImage = $request->file('profileImage')->store('profile_images', 'public');
-        } elseif (!$request->hasFile('profileImage') && $user->profileImage) {
-            // Jika tidak ada gambar baru dan gambar sebelumnya ada, biarkan gambar tetap ada
-            // Anda tidak perlu melakukan apa-apa di sini, gambar tidak akan dihapus
+    // Logika foto profil
+    if ($request->hasFile('profileImage')) {
+        // Hapus gambar lama jika ada
+        if ($user->profileImage) {
+            Storage::disk('public')->delete($user->profileImage);
         }
-        
-
-        $request->user()->save();
-
-        
-        return redirect()->route('profile.index')->with('success', 'Profil berhasil diperbarui.');
+        // Simpan gambar baru
+        $user->profileImage = $request->file('profileImage')->store('profile_images', 'public');
     }
+
+    // Simpan data user
+    $user->save();
+
+    return redirect()->route('profile.index')->with('success', 'Profil berhasil diperbarui.');
+}
+
     
     /**
      * Delete the user's account.

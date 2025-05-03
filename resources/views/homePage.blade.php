@@ -64,7 +64,7 @@
                         <summary class="cursor-pointer">Detail</summary>
                         <p class="card-text"><span class="font-semibold">ISBN:</span> {{ $book->isbn }}</p>
                         <p class="card-text"><span class="font-semibold">Penulis: </span> {{ $book->author }}</p>
-                        <p class="card-text"><span class="font-semibold">Tahun Terbit: </span> {{ $book->yearPublication }}</p>
+                        <p class="card-text"><span class="font-semibold">Tahun Terbit: </span> {{ $book->publicationYear}}</p>
                         <p class="card-text"><span class="font-semibold">Penerbit: </span>{{ $book->publisher }}</p>
                         <p class="card-text"><span class="font-semibold">Halaman:</span> {{ $book->description }} halaman</p>
                         <p class="card-text"><span class="font-semibold">Sinopsis:</span> {{ $book->synopsis }}</p>

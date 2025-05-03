@@ -5,108 +5,122 @@
         </h2>
     </x-slot>
 
-    <div class="py-10 px-6  w-full bg-blue-500">
-        <p class="text-xl font-medium w-fit border-b border-slate-100 mb-9 text-white">Profile</p>
-        
-        <div id="main" class="flex flex-col gap-12 w-[400px] text-white pb-14 mt-10">
-            <div id="profileImage & username" class="flex gap-6 items-center">
-                <div class="w-[120px] h-[120px] bg-slate-50 rounded-full">
-                    @if ($user->profileImage)
-                        <img src="{{ asset('storage/'.$user->profileImage) }}" alt="foto profil" class="h-full w-full rounded-full object-cover">
-                    @else
-                        <svg xmlns="http://www.w3.org/2000/svg" class="px-2 py-2 h-fit w-fit text-slate-700" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 1.2c-3.2 0-9.6 1.7-9.6 4.8v1.2c0 .6.6 1.2 1.2 1.2h16.8c.6 0 1.2-.6 1.2-1.2V18c0-3.1-6.4-4.8-9.6-4.8z"/>
-                        </svg>
-                    @endif
-                </div>
-                
-                <p class="font-semibold text-[20px]">{{ $user->username }}</p>
-            </div>
-            <div class="flex flex-col gap-2 ">
-                <div id="name" class="flex gap-7 w-full justify-between">
-                    <p class="text-[16px] font-semibold ">Nama Lengkap : </p>
-                    <p>{{ $user->name }}</p>
-                </div>
-                <div id="email" class="flex gap-7 justify-between">
-                    <p class="text-[16px] font-semibold">Email :</p>
-                    <p>{{ $user->email }}</p>
-                </div>
-                <div id="nik" class="flex gap-7 justify-between">
-                    <p class="text-[16px] font-semibold">NIK :</p>
-                    <p>*****</p>
-                </div>
-                <div id="gender" class="flex gap-7 justify-between">
-                    <p class="text-[16px] font-semibold">Jenis Kelamin :</p>
-                    <p>{{ $user->gender }}</p>
-                </div>
-                <div id="password" class="flex gap-7 justify-between">
-                    <p class="text-[16px] font-semibold justify-between">Password :</p>
-                    <p>{{ $passwordStars }}</p>
-                </div>
-                <div id="password" class="flex gap-7 justify-between">
-                    <p class="text-[16px] font-semibold">No. Telepon :</p>
-                    <p>{{ $user->numberphone}}</p>
-                </div>
+    <div class="py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+            <!-- Profile Header -->
+            <div class="mb-8">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                    Profil
+                </h1>                
             </div>
 
-            <div id="button" class=" flex flex-col gap-3 items-center w-full">
-                <a class="" href="{{ route('profile.edit', ['id' => Auth::id()]) }}">
-                    <x-primary-button class="font-medium rounded-[50px] w-[400px] h-[40px] text-center items-center ">
-                    {{ __('edit') }}
-                    </x-primary-button>
-                </a>    
-
-                <p class="font-medium">ATAU</p>
-
-                <div class="w-full rounded-[50px] flex items-center">                    
-                    <button class="bg-red-600 font-medium w-full rounded-[50px] h-[40px] text-center items-center hover:bg-red-700" x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')">
-                        Hapus Akun
-                    </button>
-
-                    <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" x-data="{ isModalOpen: {{ $errors->userDeletion->isNotEmpty() ? 'true' : 'false' }} }" focusable>
-                        <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
-                            @csrf
-                            @method('delete')
+            <!-- Profile Card -->
+            <div class="bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden">
+                <!-- Profile Image & Basic Info -->
+                <div class="p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 border-b border-gray-100 dark:border-gray-700">
+                    <div class="relative">
+                        <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gray-100 dark:bg-gray-700 overflow-hidden flex items-center justify-center">
+                            @if ($user->profileImage)
+                                <img src="{{ asset('storage/'.$user->profileImage) }}" alt="Profile photo" class="h-full w-full object-cover">
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            @endif
+                        </div>
+                    </div>
                     
-                            <h2 class="text-lg font-medium text-slate-950">
-                                {{ __('Apakah kamu yakin ingin menghapus akun anda?') }}
-                            </h2>
-                    
-                            <p class="mt-1 text-sm text-slate-950 dark:text-gray-400">
-                                {{ __('Jika kamu menghapus akun, semua datanya akan hilang semua') }}
-                            </p>
-                    
-                            <div class="mt-6">
-                                <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
-                                <x-text-input
-                                    id="password"
-                                    name="password"
-                                    type="password"
-                                    class="mt-1 block text-black w-3/4 placeholder:text-black"
-                                    placeholder="{{ __('Password') }}"
-                                />
-                                <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
+                    <div class="text-center sm:text-left">
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ $user->name }}</h2>
+                        {{-- <p class="text-gray-600 dark:text-gray-300">{{ $user->username }}</p> --}}
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">{{ $user->email }}</p>
+                    </div>
+                </div>
+
+                <!-- Profile Details -->
+                <div class="divide-y divide-gray-100 dark:divide-gray-700">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
+                        <div class="space-y-4">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Full Name</p>
+                                <p class="mt-1 text-gray-900 dark:text-white">{{ $user->name }}</p>
                             </div>
-                    
-                            <div id="button" class="mt-6 flex gap-2">
-                                <!-- Tombol Batal -->
-                                <button type="button" 
-                                    class="rounded-[50px] text-blue-400 hover:bg-blue-500 hover:text-slate-100 px-4 py-2 font-semibold"
-                                    x-on:click="$dispatch('close'); isModalOpen = false; $nextTick(() => { document.querySelector('#password').value = '' })">
-                                    Batal
-                                </button>
-                                <!-- Tombol Hapus -->
-                                <button type="submit" 
-                                    class="rounded-[50px] text-slate-50 bg-red-600 hover:bg-red-700 hover:text-slate-100 px-4 py-2 font-semibold">
-                                    Hapus Akun
-                                </button>
+                            
+                            <div>
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Gender</p>
+                                <p class="mt-1 text-gray-900 dark:text-white">{{ $user->gender }}</p>
                             </div>
-                        </form>
-                    </x-modal>
-                    
+                            
+                            <div>
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Password</p>
+                                <p class="mt-1 text-gray-900 dark:text-white">{{ $passwordStars }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">NIK</p>
+                                <p class="mt-1 text-gray-900 dark:text-white">*****</p>
+                            </div>
+                            
+                            <div>
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Phone Number</p>
+                                <p class="mt-1 text-gray-900 dark:text-white">{{ $user->numberphone }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="p-6 flex justify-center flex-col space-y-4">                        
+                        <a href="{{ route('profile.edit', ['id' => Auth::id()]) }}" class="w-full sm:w-auto inline-flex justify-center items-center px-4 py-3 border border-transparent text-sm font-medium rounded-2xl shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                            Edit Profil
+                        </a>
+                        
+                        <div class="text-center text-sm text-gray-500 dark:text-gray-400">OR</div>
+                        
+                        <button x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')" class="w-full sm:w-auto inline-flex justify-center items-center px-4 py-3 border border-transparent text-sm font-medium rounded-2xl shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200">
+                            Hapus Akun
+                        </button>
+                    </div>
                 </div>
             </div>
-            
         </div>
     </div>
+
+    <!-- Delete Account Modal -->
+    <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
+        <div class="p-6">
+            <h2 class="text-lg font-medium text-gray-900 dark:text-white">
+                {{ __('Are you sure you want to delete your account?') }}
+            </h2>
+
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                {{ __('Once your account is deleted, all of its resources and data will be permanently deleted.') }}
+            </p>
+
+            <div class="mt-6">
+                <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
+
+                <x-text-input
+                    id="password"
+                    name="password"
+                    type="password"
+                    class="mt-1 block w-3/4"
+                    placeholder="{{ __('Password') }}"
+                />
+
+                <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
+            </div>
+
+            <div class="mt-6 flex justify-end space-x-3">
+                <x-secondary-button x-on:click="$dispatch('close')">
+                    {{ __('Cancel') }}
+                </x-secondary-button>
+
+                <x-danger-button class="ml-3">
+                    {{ __('Delete Account') }}
+                </x-danger-button>
+            </div>
+        </div>
+    </x-modal>
 </x-app-layout>

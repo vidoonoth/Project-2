@@ -14,7 +14,7 @@
         <h1 class="text-xl font-semibold mb-6 text-gray-700">Edit Buku</h1>
         <form action="{{ route('books.update', $book->id) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
             @csrf
-            @method('PUT')
+            w
             @if($book->bookImage)
                 <div class="mt-2 w-fit object-contain shadow-md">
                     <img src="{{ asset('storage/' . $book->bookImage) }}" alt="Gambar Buku" class="w-fit h-fit object-cover rounded">

@@ -61,7 +61,7 @@
                 <tbody class="w-[1000px] border-slate-600">
                     @foreach ($pengusulan as $item)
                         <tr class="border border-slate-200 hover:bg-gray-100 ">
-                            <td class="px-4 py-2 text-center">{{ $loop->iteration }}</td> <!-- Menambah text-center -->
+                            <td class="px-4 py-2 text-center">{{ $loop->iteration }}</td> 
                             <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->bookTitle }}</td>
                             <td class="px-4 py-2 border-l border-r border-slate-200">{{ $item->genre }}</td>
                             @if($item->isbn)

@@ -71,7 +71,7 @@ class pengusulanController extends Controller
     $bookImagePath = null;  // Set default to null
     if ($request->hasFile('bookImage')) {
         // Simpan gambar ke folder 'public/book_images'
-        $bookImagePath = $request->file('bookImage')->store('images', 'public');
+        $bookImagePath = $request->file('bookImage')->store('book_images', 'public');
     }
 
     // Simpan data buku ke dalam database dengan user_id
