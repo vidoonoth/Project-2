@@ -42,6 +42,10 @@ class BookController extends Controller
                         ->orWhere('description', 'like', '%' . $search . '%')
                         ->orWhere('synopsis', 'like', '%' . $search . '%');
         })->get();
+
+        if ($request->wantsJson()) {
+           return response()->json($books, 200);
+        }
         return view('koleksiBuku', compact('books')); // Mengirim data buku ke view
     }
     public function koleksiBukuHome(Request $request)

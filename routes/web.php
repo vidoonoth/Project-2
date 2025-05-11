@@ -1,19 +1,19 @@
 <?php
 
-use App\Http\Controllers\adminDashboard;
+// use App\Http\Controllers\adminDashboard;
+// use App\Http\Controllers\BooksController;
+// use App\Http\Controllers\UsulanController;
+// use App\Http\Controllers\KoleksiBukuController;
+// use App\Http\Controllers\AuthController;
+// use App\Http\Controllers\HomePageController;
+// use App\Http\Models\NotifikasiPengusulan;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BooksController;
-use App\Http\Controllers\UsulanController;
-use App\Http\Controllers\KoleksiBukuController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\pengusulanController;
 use App\Http\Controllers\InformasiController;
-// use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardAdminController;
-use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\NotifikasiController;
-use App\Http\Models\NotifikasiPengusulan;
 
 
 Route::middleware('auth')->group(function () {
