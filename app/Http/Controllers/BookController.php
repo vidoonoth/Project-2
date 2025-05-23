@@ -28,6 +28,7 @@ class BookController extends Controller
         })->get();
         return view('admin.dataKoleksiBuku', compact('books')); // Mengirim data ke view
     }
+    
     public function koleksiBuku(Request $request)
     {
         $books = Book::all(); // Mengambil semua data buku
@@ -42,12 +43,25 @@ class BookController extends Controller
                         ->orWhere('description', 'like', '%' . $search . '%')
                         ->orWhere('synopsis', 'like', '%' . $search . '%');
         })->get();
+    
+        // if ($request->expectsJson()) {
+        //     return response()->json($books, 200);
+        // }
 
-        if ($request->wantsJson()) {
-           return response()->json($books, 200);
-        }
+        if ($request->expectsJson()) {
+    $books = $books->map(function ($book) {
+        $book->bookImage = $book->bookImage
+            ? url('storage/book_Images/' . $book->bookImage)
+            : null;
+        return $book;
+    });
+
+    return response()->json($books, 200);
+}
+
         return view('koleksiBuku', compact('books')); // Mengirim data buku ke view
     }
+
     public function koleksiBukuHome(Request $request)
     {
         $books = Book::take(10)->get(); // Mengambil hanya 6 data buku
@@ -70,8 +84,9 @@ class BookController extends Controller
         return view('admin.createBuku');
     }
 
-    public function store(Request $request)
-    {
+   public function store(Request $request)
+{
+    // Validasi input
     $request->validate([
         'bookTitle' => 'required|string',
         'genre' => 'required|string|max:255',
@@ -84,14 +99,19 @@ class BookController extends Controller
         'bookImage' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
     ]);
 
-    // Simpan gambar dan ambil nama file
-    $bookImagePath = null;
-    
+    // Proses upload gambar jika ada
+    $bookImageFilename = null;
     if ($request->hasFile('bookImage')) {
-        // Simpan gambar ke folder 'public/book_images'
-        $bookImagePath = $request->file('bookImage')->store('book_images', 'public');
+        $originalName = $request->file('bookImage')->getClientOriginalName(); 
+
+        // Simpan ke folder public/storage/book_images
+        $request->file('bookImage')->storeAs('book_images', $originalName, 'public');
+
+        // Simpan hanya nama filenya ke database
+        $bookImageFilename = $originalName;
     }
-    // Simpan data buku
+
+    // Simpan data buku ke database
     Book::create([
         'bookTitle' => $request->bookTitle,
         'genre' => $request->genre,
@@ -101,11 +121,12 @@ class BookController extends Controller
         'publisher' => $request->publisher,
         'description' => $request->description,
         'synopsis' => $request->synopsis,
-        'bookImage' => $bookImagePath,  // Simpan hanya nama file
+        'bookImage' => $bookImageFilename, // hanya nama file
     ]);
 
     return redirect()->route('books.index')->with('success', 'Book created successfully');
-    }
+}
+
 
 
     public function edit($id)

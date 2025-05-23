@@ -89,7 +89,7 @@
                                 <td class="px-4 py-2">{{ $loop->iteration }}</td>
                                 <td class="px-4 py-2 font-medium text-gray-900 dark:text-white border-l border-r border-slate-200">
                                     @if($book->bookImage)
-                                        <img class="w-[80px] h-[100px] object-cover" src="{{ asset('storage/' . $book->bookImage) }}" alt="gambar buku">
+                                        <img class="w-[80px] h-[100px] object-cover" src="{{ asset('storage/book_images/' . $book->bookImage) }}" alt="gambar buku">
                                     @else
                                         <span class="text-gray-500">Tidak ada gambar</span>
                                     @endif

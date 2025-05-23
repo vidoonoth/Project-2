@@ -27,35 +27,45 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'username' => ['required', 'string', 'max:255'],
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'numberphone' => ['required', 'string', 'min:10', 'max:13'],
-            'nik' => ['required', 'string', 'min:16', 'max:16'],
-            'gender' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    public function store(Request $request): RedirectResponse|\Illuminate\Http\JsonResponse
+{
+    $request->validate([
+        'username' => ['required', 'string', 'max:255'],
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+        'numberphone' => ['required', 'string', 'min:10', 'max:13'],
+        'nik' => ['required', 'string', 'min:16', 'max:16'],
+        'gender' => ['required', 'string', 'max:255'],
+        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+    ]);
 
+    $user = User::create([
+        'username' => $request->username,
+        'name' => $request->name,
+        'email' => $request->email,
+        'numberphone' => $request->numberphone,
+        'nik' => $request->nik,
+        'gender' => $request->gender,
+        'password' => Hash::make($request->password),
+        'profileImage' => null,
+    ]);
 
-        ]);
+    event(new Registered($user));
+    Auth::login($user);
 
-        $user = User::create([
-            'username' => $request->username,
-            'name' => $request->name,
-            'email' => $request->email,
-            'numberphone' => $request->numberphone,
-            'nik' => $request->nik,
-            'gender' => $request->gender,
-            'password' => Hash::make($request->password),
-            'profileImage' => null,
-        ]);
+    // Jika API request (Expect JSON)
+    if ($request->expectsJson()) {
+        $token = $user->createToken('API Token')->plainTextToken;
 
-        event(new Registered($user));
-
-        Auth::login($user);
-
-        return redirect(route('home', absolute: false));
+        return response()->json([
+            'message' => 'Registrasi berhasil',
+            'user' => $user,
+            'token' => $token,
+        ], 201);
     }
+
+    // Jika request biasa (dari browser)
+    return redirect(route('home', absolute: false));
+}
+
 }

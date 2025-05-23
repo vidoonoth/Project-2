@@ -18,14 +18,36 @@ class ProfileController extends Controller
      * Display the user's profile form.
      * 
      */
-    public function index(Request $request){
-        $user = auth::user();
-        $passwordLength = strlen($user->password);
-        $passwordStars = str_repeat('*', 3);
+ public function index(Request $request)
+{
+    $user = Auth::user();
 
-        return view('profile.profile',compact('user', 'passwordStars'));
-        
+    if (!$user) {
+        if ($request->expectsJson()) {
+            return response()->json(['message' => 'Unauthenticated'], 401);
+        }
+        return redirect()->route('login'); // untuk web
     }
+
+    if ($request->expectsJson()) {
+        return response()->json([
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'nik' => $user->nik,
+            'numberphone' => $user->numberphone,
+            'gender' => $user->gender,
+            'created_at' => \Carbon\Carbon::parse($user->created_at)->locale('id')->translatedFormat('d F Y'),
+            'profileImage' => $user->profile_image ? url('storage/profile_images/' . $user->profile_image) : null, // pastikan path-nya benar
+        ]);
+    }
+
+    // Untuk view web
+    $passwordLength = strlen($user->password);
+    $passwordStars = str_repeat('*', 3);
+    return view('profile.profile', compact('user', 'passwordStars'));
+}
+
 
     public function edit()
     {
@@ -57,7 +79,7 @@ class ProfileController extends Controller
     //     return redirect()->route('profile.index')->with('success', 'Profile updated successfully!'); 
     // }
 
-    public function update(ProfileUpdateRequest $request)
+public function update(ProfileUpdateRequest $request)
 {
     $user = $request->user();
 
@@ -73,11 +95,16 @@ class ProfileController extends Controller
     // Logika foto profil
     if ($request->hasFile('profileImage')) {
         // Hapus gambar lama jika ada
-        if ($user->profileImage) {
-            Storage::disk('public')->delete($user->profileImage);
+        if ($user->profile_image) {
+            Storage::disk('public')->delete('profile_images/' . $user->profile_image);
         }
-        // Simpan gambar baru
-        $user->profileImage = $request->file('profileImage')->store('profile_images', 'public');
+
+        // Simpan gambar baru dan ambil hanya nama filenya
+        $file = $request->file('profileImage');
+        $filename = $file->hashName(); // contoh: abc123.png
+        $file->storeAs('profile_images', $filename, 'public');
+
+        $user->profile_image = $filename;
     }
 
     // Simpan data user
@@ -85,6 +112,7 @@ class ProfileController extends Controller
 
     return redirect()->route('profile.index')->with('success', 'Profil berhasil diperbarui.');
 }
+
 
     
     /**

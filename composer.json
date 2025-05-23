@@ -9,6 +9,7 @@
         "barryvdh/laravel-dompdf": "^3.0",
         "filament/filament": "^3.2",
         "filament/notifications": "v3.2.113",
+        "kreait/firebase-php": "^5.26",
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",

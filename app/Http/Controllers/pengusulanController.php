@@ -50,49 +50,48 @@ class pengusulanController extends Controller
     }
 
     // logic untuk pengusulan
+
     public function store(Request $request)
     {
+        // Validasi input
+        $validated = $request->validate([
+            'bookTitle' => 'required|string',
+            'genre' => 'required|string|max:255',
+            'isbn' => 'nullable|string',
+            'author' => 'required|string|max:255',
+            'publicationYear' => 'required|string',
+            'publisher' => 'required|string|max:255',
+            'date' => 'required|date',
+            'bookImage' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+        ]);
 
-    
-    // Validasi input
-    $request->validate([
-        'bookTitle' => 'required|string',
-        'genre' => 'required|string|max:255',
-        'isbn' => 'nullable|string',
-        'author' => 'required|string|max:255',
-        'publicationYear' => 'required|string',
-        'publisher' => 'required|string|max:255',
-        'date' => 'required|date',
-        'bookImage' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-        
-    ]);
+        $bookImagePath = null;
+        if ($request->hasFile('bookImage')) {
+            $bookImagePath = $request->file('bookImage')->store('usulan', 'public');
+        }
 
-    // Menangani file gambar jika ada
-    $bookImagePath = null;  // Set default to null
-    if ($request->hasFile('bookImage')) {
-        // Simpan gambar ke folder 'public/book_images'
-        $bookImagePath = $request->file('bookImage')->store('book_images', 'public');
-    }
+        $pengusulan = Pengusulan::create([
+            'bookTitle' => $request->bookTitle,
+            'genre' => $request->genre,
+            'isbn' => $request->isbn,
+            'author' => $request->author,
+            'publicationYear' => $request->publicationYear,
+            'publisher' => $request->publisher,
+            'date' => $request->date,
+            'bookImage' => $bookImagePath,
+            'status' => 'diproses',  
+            'user_id' => Auth::id(),      
+        ]);
 
-    // Simpan data buku ke dalam database dengan user_id
-    $pengusulan = Pengusulan::create([
-        'bookTitle' => $request->bookTitle,
-        'genre' => $request->genre,
-        'isbn' => $request->isbn,
-        'author' => $request->author,
-        'publicationYear' => $request->publicationYear,
-        'publisher' => $request->publisher,
-        'date' => $request->date,
-        'bookImage' => $bookImagePath,  // Menyimpan nama file gambar
-        'status' => "diproses",  // Status default        
-        'user_id' => Auth::id(),
-    ]);
-    $user = Auth::user();
-    Notification::send($user, new DiterimaNotification($pengusulan, $user));
-    
+        // if ($request->wantsJson()) {
+        //     return response()->json([
+        //         'message' => 'Usulan berhasil disimpan',
+        //         'data' => $pengusulan,
+        //     ], 201);
+        // }
 
-    // Redirect setelah berhasil menyimpan
-    return redirect()->route('pengusulan.index')->with('success', 'Usulan buku berhasil diajukan!');
+        return redirect()->route('pengusulan.index')->with('success', 'Usulan berhasil dikirim');
+
     }
 
     public function detailUsulan($id)
@@ -130,16 +129,7 @@ class pengusulanController extends Controller
             'publisher' => 'required|string|max:255',
             'date' => 'required|date',
             'bookImage' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-        ]);
-
-        // if ($request->hasFile('bookImage')) {
-        //     if ($pengusulan->bookImage) {
-        //         Storage::disk('public')->delete($pengusulan->bookImage);
-        //     }
-        //     $pengusulan->bookImage = $request->file('bookImage')->store('book_images', 'public');
-        // }
-
-        // $pengusulan->update($request->except('bookImage'));
+        ]);        
 
         if ($request->hasFile('bookImage')) {
             // Hapus gambar lama jika ada
